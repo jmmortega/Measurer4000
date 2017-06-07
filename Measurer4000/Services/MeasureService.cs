@@ -2,19 +2,30 @@
 using System;
 using System.Collections.Generic;
 using Measurer4000.Models;
+using Measurer4000.Utils;
 
 namespace Measurer4000.Services
 {
     public class MeasureService : IMeasurerService
     {
-        public List<Project> GetProjects(string filePathToSolution)
+        public Solution GetProjects(string filePathToSolution)
         {
-            throw new NotImplementedException();
+            List<string> ProjectLines = ProjectIdentificatorUtils.ReadProjectsLines(filePathToSolution);
+            List<Project> SolutionProjects = ProjectIdentificatorUtils.TranslateProjectsLinesToProjects(ProjectLines);
+            foreach (Project hit in SolutionProjects){
+                ProjectIdentificatorUtils.CompleteInfoForProject(hit, filePathToSolution);
+            }
+            return new Solution() { Projects = SolutionProjects };
         }
 
-        public Solution Measure(string filePathSolution)
+        public Solution Measure(Solution solution)
         {
-            throw new NotImplementedException();
+            foreach (Project project in solution.Projects) {
+                foreach (ProgrammingFile programmingFile in project.Files) {
+                    programmingFile.LOC = MeasureUtils.CalculateLOC(programmingFile);
+                }
+            }
+            return solution;
         }
     }
 }

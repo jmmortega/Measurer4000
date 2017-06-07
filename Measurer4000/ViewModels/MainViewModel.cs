@@ -59,7 +59,7 @@ namespace Measurer4000.ViewModels
 
         private void OpenSolutionPath(string solutionPath)
         {
-            _measureService.Measure(solutionPath);
+            _measureService.GetProjects(solutionPath);
         }
 
         private void ShowError(Exception e)

@@ -4,7 +4,7 @@
     {
         public string Name { get; set; }
 
-        public int LOC { get; set; }
+        public long LOC { get; set; }
 
         public bool IsUserInterface { get; set; }
 

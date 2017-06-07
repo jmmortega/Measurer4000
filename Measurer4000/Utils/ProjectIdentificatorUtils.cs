@@ -86,7 +86,7 @@ namespace Measurer4000.Utils
                             project.Files.Add(WellSmellsLikeFile(line));
                         }                        
                     }
-                }                
+                }
             }
             catch(Exception e)
             {
@@ -104,7 +104,7 @@ namespace Measurer4000.Utils
             return project;
         }
 
-        public static EnumPlatform ThisLineDeterminePlatform(string line)
+        private static EnumPlatform ThisLineDeterminePlatform(string line)
         {
             if(line.ToLower().Contains("android"))
             {
@@ -125,12 +125,12 @@ namespace Measurer4000.Utils
             }
         }
 
-        public static bool ItsAValidFile(string fileLine)
+        private static bool ItsAValidFile(string fileLine)
         {
             return fileLine.Contains(".cs") || fileLine.Contains(".xaml") || fileLine.Contains(".axml") || fileLine.Contains(".xib") || fileLine.Contains(".xml");
         }
 
-        public static ProgrammingFile WellSmellsLikeFile(string includeFileLine)
+        private static ProgrammingFile WellSmellsLikeFile(string includeFileLine)
         {                        
             string pathFile = includeFileLine.Split('=')[1];
 
@@ -141,7 +141,6 @@ namespace Measurer4000.Utils
             };
         }
 
-        
     }
 
 }

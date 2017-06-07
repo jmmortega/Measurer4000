@@ -15,7 +15,7 @@ namespace Measurer4000.Services
             try
             {
                 Microsoft.Win32.OpenFileDialog fileDialog = new Microsoft.Win32.OpenFileDialog();
-                fileDialog.Filter = ".sln";
+                fileDialog.Filter = "Solution Files (*.sln)|*.sln";
 
                 if (fileDialog.ShowDialog() == true)
                 {

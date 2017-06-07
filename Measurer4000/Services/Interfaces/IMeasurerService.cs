@@ -5,10 +5,9 @@ namespace Measurer4000.Services.Interfaces
 {
     public interface IMeasurerService
     {
-        List<Project> GetProjects(string filePathToSolution);
+        Solution GetProjects(string filePathToSolution);
 
-        Solution Measure(string filePathSolution);
-
+        Solution Measure(Solution SolutionProjects);
 
     }
 }
