@@ -1,0 +1,107 @@
+﻿<Window x:Class="Measurer4000.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Measurer4000"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock Text="Select here your solution file to measure" VerticalAlignment="Center"/>
+            <Button Command="{Binding CommandSelectFile}" Width="60" Height="30" Margin="8,0,0,0" IsEnabled="{Binding IsBusy, Converter={StaticResource NotVisibilityConverter}}">
+                <TextBlock Text="Open"/>
+            </Button>
+        </StackPanel>
+
+        <ProgressBar Grid.Row="1" IsIndeterminate="True" Visibility="{Binding IsBusy, Converter={StaticResource VisibilityConverter}}"/>
+
+        <Grid Grid.Row="2" Margin="0,8,0,8" Visibility="{Binding IsBusy, Converter={StaticResource NotVisibilityConverter}}">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="5*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0">
+                
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0,32,0,0">
+                    <TextBlock Text="Share code in Android"/>
+                    <TextBlock Text="{Binding Stats.ShareCodeInAndroid}"  FontSize="30" FontWeight="Bold" TextAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0,32,0,0">
+                    <TextBlock Text="Share code in Android"/>
+                    <TextBlock Text="{Binding Stats.ShareCodeInIOS}" FontSize="30" FontWeight="Bold" TextAlignment="Center"/>
+                </StackPanel>
+
+            </StackPanel>
+
+
+            <StackPanel Grid.Column="1" Margin="0,16,0,0">
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Amount of files: " FontWeight="Bold"/>
+                    <TextBlock Text="{Binding Stats.AmountOfFiles}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Code Files: " FontWeight="Bold"/>
+                    <TextBlock Text="{Binding Stats.CodeFiles}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" >
+                    <TextBlock Text="UI Files: " FontWeight="Bold"/>
+                    <TextBlock Text="{Binding Stats.UIFiles}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" >
+                    <TextBlock Text="Total lines of code: " FontWeight="Bold"/>
+                    <TextBlock Text="{Binding Stats.TotalLinesOfCode}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" >
+                    <TextBlock Text="Total lines of UI: " FontWeight="Bold"/>
+                    <TextBlock Text="{Binding Stats.TotalLinesOfUI}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" >
+                    <TextBlock Text="Androids files: " FontWeight="Bold"/>
+                    <TextBlock Text="{Binding Stats.AndroidFiles}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" >
+                    <TextBlock Text="iOS files: " FontWeight="Bold"/>
+                    <TextBlock Text="{Binding Stats.iOSFiles}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" >
+                    <TextBlock Text="Total lines in Android: " FontWeight="Bold"/>
+                    <TextBlock Text="{Binding Stats.TotalLinesInAndroid}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" >
+                    <TextBlock Text="Total lines in iOS: " FontWeight="Bold"/>
+                    <TextBlock Text="{Binding Stats.TotalLinesIniOS}"/>
+                </StackPanel>
+
+            </StackPanel>
+        </Grid>
+
+        <StackPanel Grid.Row="3">
+            <TextBlock Foreground="Blue">
+                <Hyperlink NavigateUri="www.google.com"/>
+                "Please share your results in stats page. Thank you"
+            </TextBlock>
+        </StackPanel>
+
+    </Grid>
+</Window>
