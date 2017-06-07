@@ -16,11 +16,11 @@ namespace Measurer4000.Utils
             {                
                 solutionReader = new StreamReader(File.OpenRead(filePathToSolution));
                 
-                while(solutionReader.EndOfStream)
+                while(!solutionReader.EndOfStream)
                 {
                     string line = solutionReader.ReadLine();
 
-                    if(line.Contains("Project") && !line.Contains("EndProject"))
+                    if(line.Contains("Project") && !line.Contains("EndProject") && !line.Contains("GlobalSection"))
                     {
                         projects.Add(line);           
                     }
@@ -48,13 +48,13 @@ namespace Measurer4000.Utils
                         
             foreach(var projectLine in projectLines)
             {
-                string thatINeed = projectLine.Split('=')[1].Trim();                
+                string thatINeed = projectLine.Split('=')[1].Trim();
                 string[] thatINeedSplitted = thatINeed.Split(',');
 
                 projects.Add(new Project()
                 {
-                    Name = thatINeedSplitted[0],
-                    Path = thatINeedSplitted[1]
+                    Name = thatINeedSplitted[0].Trim().Trim('"'),
+                    Path = thatINeedSplitted[1].Trim().Trim('"')
                 });                
             }
 
@@ -64,14 +64,13 @@ namespace Measurer4000.Utils
         public static Project CompleteInfoForProject(Project project, string pathToSolution)
         {
             StreamReader projectReader = null;
-                        
             try
             {
                 projectReader = new StreamReader(File.OpenRead(Path.Combine(
                     new FileInfo(pathToSolution).Directory.FullName,
                     project.Path)));
 
-                while(projectReader.EndOfStream)
+                while(!projectReader.EndOfStream)
                 {
                     string line = projectReader.ReadLine();
                     if (project.Platform == EnumPlatform.None)
