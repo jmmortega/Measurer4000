@@ -27,9 +27,5 @@ namespace Measurer4000
 
             DataContext = new MainViewModel();
         }
-
-        
-
-
     }
 }

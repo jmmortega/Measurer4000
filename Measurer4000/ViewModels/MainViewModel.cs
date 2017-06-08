@@ -68,15 +68,15 @@ namespace Measurer4000.ViewModels
         {
             _currentSolution = _measureService.Measure(solution);
             Stats = new CodeStats() {
-                AmountOfFiles = 0,
-                CodeFiles = 0,
-                UIFiles = 0,
-                TotalLinesOfCode = 0,
-                TotalLinesOfUI = 0,
-                AndroidFiles = 0,
-                iOSFiles = 0,
-                TotalLinesInAndroid = 0,
-                TotalLinesIniOS = 0
+                AmountOfFiles = _currentSolution.Projects.SelectMany(p => p.Files).Count(),
+                CodeFiles = _currentSolution.Projects.SelectMany(x => x.Files).Count(x => x.IsUserInterface == false),
+                UIFiles = _currentSolution.Projects.SelectMany(x => x.Files).Count(x => x.IsUserInterface == true),
+                TotalLinesOfCode = _currentSolution.Projects.SelectMany(x => x.Files).Where(x => x.IsUserInterface == true).Sum(x => x.LOC),
+                TotalLinesOfUI = _currentSolution.Projects.SelectMany(x => x.Files).Where(x => x.IsUserInterface == false).Sum(x => x.LOC),
+                AndroidFiles = _currentSolution.Projects.Where(x => x.Platform == EnumPlatform.Android).SelectMany(x => x.Files).Count(),
+                iOSFiles = _currentSolution.Projects.Where(x => x.Platform == EnumPlatform.iOS).SelectMany(x => x.Files).Count(),
+                TotalLinesInAndroid = _currentSolution.Projects.Where(x => x.Platform == EnumPlatform.Android).SelectMany(x => x.Files).Sum(x => x.LOC),
+                TotalLinesIniOS = _currentSolution.Projects.Where(x => x.Platform == EnumPlatform.iOS).SelectMany(x => x.Files).Sum(x => x.LOC)
             };
         }
 
