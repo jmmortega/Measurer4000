@@ -169,7 +169,7 @@ namespace Measurer4000.Utils
             && !line.StartsWith("//")
             && (line.StartsWith("if")
             || line.StartsWith("else if")
-            || line.StartsWith("using (")
+            || line.StartsWith("using")
             || line.Contains(";")
             || line.StartsWith("public")
             || line.StartsWith("private")

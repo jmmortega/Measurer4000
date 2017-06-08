@@ -61,6 +61,23 @@ namespace Measurer4000.ViewModels
         private void OpenSolutionPath(string solutionPath)
         {
             _currentSolution = _measureService.GetProjects(solutionPath);
+            MeasureSolution(_currentSolution);
+        }
+
+        private void MeasureSolution(Solution solution)
+        {
+            _currentSolution = _measureService.Measure(solution);
+            Stats = new CodeStats() {
+                AmountOfFiles = 0,
+                CodeFiles = 0,
+                UIFiles = 0,
+                TotalLinesOfCode = 0,
+                TotalLinesOfUI = 0,
+                AndroidFiles = 0,
+                iOSFiles = 0,
+                TotalLinesInAndroid = 0,
+                TotalLinesIniOS = 0
+            };
         }
 
         private void ShowError(Exception e)

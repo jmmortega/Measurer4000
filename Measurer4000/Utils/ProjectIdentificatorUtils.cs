@@ -73,12 +73,11 @@ namespace Measurer4000.Utils
                         project.Platform = ThisLineDeterminePlatform(line);
                     }
 
-                    if(line.Contains("Compile") || line.Contains("InterfaceDefinition") || line.Contains("AndroidResource"))
+                    if (line.Contains("Compile") || line.Contains("InterfaceDefinition") || line.Contains("AndroidResource"))
                     {
-                        if(ItsAValidFile(line))
-                        {
-                            project.Files.Add(WellSmellsLikeFile(line));
-                        }                        
+                        if(ItsAValidFile(line)) project.Files.Add(WellSmellsLikeFile(line,
+                            new FileInfo(Path.Combine(new FileInfo(pathToSolution).Directory.FullName,
+                            project.Path)).Directory.FullName));                       
                     }
                 }
             }
@@ -124,7 +123,7 @@ namespace Measurer4000.Utils
             return fileLine.Contains(".cs") || fileLine.Contains(".xaml") || fileLine.Contains(".axml") || fileLine.Contains(".xib") || fileLine.Contains(".xml");
         }
 
-        private static ProgrammingFile WellSmellsLikeFile(string includeFileLine)
+        private static ProgrammingFile WellSmellsLikeFile(string includeFileLine, string projectsPath)
         {                        
             string pathFile = includeFileLine.Split('=')[1].Trim('>').Trim('/').Trim('"').Trim().Trim('"');
             System.Diagnostics.Debug.WriteLine(pathFile);
@@ -132,6 +131,7 @@ namespace Measurer4000.Utils
             return new ProgrammingFile()
             {
                 Name = pathFile,
+                Path = Path.Combine(projectsPath, pathFile),
                 IsUserInterface = pathFile.Contains(".axml") || pathFile.Contains(".designer") || pathFile.Contains(".xaml") || pathFile.Contains(".xib")
             };
         }

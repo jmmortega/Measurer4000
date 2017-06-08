@@ -10,7 +10,7 @@ namespace Measurer4000.Models
     {
         public double ShareCodeInAndroid { get; set; }
 
-        public double ShareCodeInIOS { get; set; }
+        public double ShareCodeIniOS { get; set; }
 
         public long AmountOfFiles { get; set; }
 
