@@ -14,16 +14,11 @@ namespace Measurer4000.Utils
 
             try
             {                
-                solutionReader = new StreamReader(File.OpenRead(filePathToSolution));
-                
+                solutionReader = new StreamReader(File.OpenRead(filePathToSolution)); 
                 while(!solutionReader.EndOfStream)
                 {
                     string line = solutionReader.ReadLine();
-
-                    if(line.Contains("Project") && !line.Contains("EndProject") && !line.Contains("GlobalSection"))
-                    {
-                        projects.Add(line);           
-                    }
+                    if (line.StartsWith("Project")) projects.Add(line);
                 }                
             }
             catch(Exception e)
@@ -131,7 +126,8 @@ namespace Measurer4000.Utils
 
         private static ProgrammingFile WellSmellsLikeFile(string includeFileLine)
         {                        
-            string pathFile = includeFileLine.Split('=')[1];
+            string pathFile = includeFileLine.Split('=')[1].Trim('>').Trim('/').Trim('"').Trim().Trim('"');
+            System.Diagnostics.Debug.WriteLine(pathFile);
 
             return new ProgrammingFile()
             {

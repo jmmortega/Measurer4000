@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Measurer4000.Models;
 using Measurer4000.Utils;
+using System.Threading.Tasks;
 
 namespace Measurer4000.Services
 {
@@ -12,19 +13,21 @@ namespace Measurer4000.Services
         {
             List<string> ProjectLines = ProjectIdentificatorUtils.ReadProjectsLines(filePathToSolution);
             List<Project> SolutionProjects = ProjectIdentificatorUtils.TranslateProjectsLinesToProjects(ProjectLines);
-            foreach (Project hit in SolutionProjects){
+            Parallel.ForEach(SolutionProjects, (hit) => {
                 ProjectIdentificatorUtils.CompleteInfoForProject(hit, filePathToSolution);
-            }
+            });
             return new Solution() { Projects = SolutionProjects };
         }
 
         public Solution Measure(Solution solution)
         {
-            foreach (Project project in solution.Projects) {
-                foreach (ProgrammingFile programmingFile in project.Files) {
+            Parallel.ForEach(solution.Projects, (project) =>
+            {
+                Parallel.ForEach(project.Files, (programmingFile) =>
+                {
                     programmingFile.LOC = MeasureUtils.CalculateLOC(programmingFile);
-                }
-            }
+                });
+            });
             return solution;
         }
     }
