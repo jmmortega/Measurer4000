@@ -75,9 +75,12 @@ namespace Measurer4000.Utils
 
                     if (line.Contains("Compile") || line.Contains("InterfaceDefinition") || line.Contains("AndroidResource"))
                     {
-                        if(ItsAValidFile(line)) project.Files.Add(WellSmellsLikeFile(line,
-                            new FileInfo(Path.Combine(new FileInfo(pathToSolution).Directory.FullName,
-                            project.Path)).Directory.FullName));                       
+                        if (ItsAValidFile(line))
+                        {
+                            project.Files.Add(WellSmellsLikeFile(line,
+                                new FileInfo(Path.Combine(new FileInfo(pathToSolution).Directory.FullName,
+                                    project.Path)).Directory.FullName));
+                        }                     
                     }
                 }
             }
@@ -120,7 +123,7 @@ namespace Measurer4000.Utils
 
         private static bool ItsAValidFile(string fileLine)
         {
-            return fileLine.Contains(".cs") || fileLine.Contains(".xaml") || fileLine.Contains(".axml") || fileLine.Contains(".xib") || fileLine.Contains(".xml");
+            return (fileLine.Contains(".cs") || fileLine.Contains(".xaml") || fileLine.Contains(".axml") || fileLine.Contains(".xib") || fileLine.Contains(".xml")) && !fileLine.Contains("Resource.Designer.cs");
         }
 
         private static ProgrammingFile WellSmellsLikeFile(string includeFileLine, string projectsPath)

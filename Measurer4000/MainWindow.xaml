@@ -29,6 +29,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="5*"/>
                 <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="5*"/>
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Column="0">
@@ -45,8 +46,21 @@
 
             </StackPanel>
 
+            <StackPanel Grid.Column="1">
 
-            <StackPanel Grid.Column="1" Margin="0,16,0,0">
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0,32,0,0">
+                    <TextBlock Text="Share UI in Android"/>
+                    <TextBlock Text="{Binding Stats.ShareUIInAndroid}"  FontSize="30" FontWeight="Bold" TextAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0,32,0,0">
+                    <TextBlock Text="Share UI in iOS"/>
+                    <TextBlock Text="{Binding Stats.ShareUIIniOS}" FontSize="30" FontWeight="Bold" TextAlignment="Center"/>
+                </StackPanel>
+
+            </StackPanel>
+
+            <StackPanel Grid.Column="2" Margin="0,16,0,0">
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Amount of files: " FontWeight="Bold"/>
@@ -91,6 +105,11 @@
                 <StackPanel Orientation="Horizontal" >
                     <TextBlock Text="Total lines in iOS: " FontWeight="Bold"/>
                     <TextBlock Text="{Binding Stats.TotalLinesIniOS}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" >
+                    <TextBlock Text="Total lines Core: " FontWeight="Bold"/>
+                    <TextBlock Text="{Binding Stats.TotalLinesCore}"/>
                 </StackPanel>
 
             </StackPanel>
