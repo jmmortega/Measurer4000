@@ -117,7 +117,7 @@
 
         <StackPanel Grid.Row="3">
             <TextBlock Foreground="Blue">
-                <Hyperlink NavigateUri="www.google.com"/>
+                <Hyperlink NavigateUri="https://docs.google.com/forms/"/>
                 "Please share your results in stats page. Thank you"
             </TextBlock>
         </StackPanel>
