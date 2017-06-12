@@ -60,12 +60,15 @@ namespace Measurer4000.ViewModels
 
         private void OpenSolutionPath(string solutionPath)
         {
+            IsBusy = true;
             _currentSolution = _measureService.GetProjects(solutionPath);
+            IsBusy = false; // just in case we later split this in 2 buttons
             MeasureSolution(_currentSolution);
         }
 
         private void MeasureSolution(Solution solution)
         {
+            IsBusy = true;
             _currentSolution = _measureService.Measure(solution);
             Stats = new CodeStats() {
                 ShareCodeInAndroid = Math.Round(((double) _currentSolution.Projects.Where(x => x.Platform == EnumPlatform.Core).SelectMany(x => x.Files).Where(x => x.IsUserInterface == false).Sum(x => x.LOC) 
@@ -96,6 +99,7 @@ namespace Measurer4000.ViewModels
                 TotalLinesInAndroid = _currentSolution.Projects.Where(x => x.Platform == EnumPlatform.Android).SelectMany(x => x.Files).Sum(x => x.LOC),
                 TotalLinesIniOS = _currentSolution.Projects.Where(x => x.Platform == EnumPlatform.iOS).SelectMany(x => x.Files).Sum(x => x.LOC)
             };
+            IsBusy = false;
         }
 
         private void ShowError(Exception e)

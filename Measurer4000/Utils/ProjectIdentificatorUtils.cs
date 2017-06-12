@@ -19,6 +19,7 @@ namespace Measurer4000.Utils
                 {
                     string line = solutionReader.ReadLine();
                     if (line.StartsWith("Project")) projects.Add(line);
+                    System.Diagnostics.Debug.WriteLine(line+(line.StartsWith("Project")?" is project":" isnt project"));
                 }                
             }
             catch(Exception e)
@@ -80,9 +81,11 @@ namespace Measurer4000.Utils
                             project.Files.Add(WellSmellsLikeFile(line,
                                 new FileInfo(Path.Combine(new FileInfo(pathToSolution).Directory.FullName,
                                     project.Path)).Directory.FullName));
+                            System.Diagnostics.Debug.WriteLine(line + (project.Files[project.Files.Count-1].IsUserInterface ? " is" : " isnt")+" UI");
                         }                     
                     }
                 }
+                System.Diagnostics.Debug.WriteLine(project.Name + " is" + project.Platform);
             }
             catch(Exception e)
             {
@@ -129,7 +132,6 @@ namespace Measurer4000.Utils
         private static ProgrammingFile WellSmellsLikeFile(string includeFileLine, string projectsPath)
         {                        
             string pathFile = includeFileLine.Split('=')[1].Trim('>').Trim('/').Trim('"').Trim().Trim('"');
-            System.Diagnostics.Debug.WriteLine(pathFile);
 
             return new ProgrammingFile()
             {
