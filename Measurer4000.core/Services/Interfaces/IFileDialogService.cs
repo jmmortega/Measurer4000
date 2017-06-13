@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Measurer4000.Services.Interfaces
+namespace Measurer4000.core.Services.Interfaces
 {
     public interface IDialogService
     {

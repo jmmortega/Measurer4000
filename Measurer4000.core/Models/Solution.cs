@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Measurer4000.Models
+namespace Measurer4000.core.Models
 {
     public class Solution
     {
@@ -10,5 +10,7 @@ namespace Measurer4000.Models
         }
 
         public List<Project> Projects { get; set; }
+
+        public CodeStats Stats { get; set; }
     }
 }

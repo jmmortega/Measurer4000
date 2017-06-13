@@ -1,11 +1,11 @@
-﻿using Measurer4000.Services.Interfaces;
+﻿using Measurer4000.core.Services.Interfaces;
 using System;
 using System.Collections.Generic;
-using Measurer4000.Models;
-using Measurer4000.Utils;
+using Measurer4000.core.Models;
+using Measurer4000.core.Utils;
 using System.Threading.Tasks;
 
-namespace Measurer4000.Services
+namespace Measurer4000.core.Services
 {
     public class MeasureService : IMeasurerService
     {

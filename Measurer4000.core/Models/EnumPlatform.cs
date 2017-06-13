@@ -1,4 +1,4 @@
-﻿namespace Measurer4000.Models
+﻿namespace Measurer4000.core.Models
 {
     public enum EnumPlatform
     {

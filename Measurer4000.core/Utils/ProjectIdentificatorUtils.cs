@@ -1,9 +1,9 @@
-﻿using Measurer4000.Models;
+﻿using Measurer4000.core.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Measurer4000.Utils
+namespace Measurer4000.core.Utils
 {
     public static class ProjectIdentificatorUtils
     {
@@ -85,7 +85,7 @@ namespace Measurer4000.Utils
                         }                     
                     }
                 }
-                System.Diagnostics.Debug.WriteLine(project.Name + " is" + project.Platform);
+                System.Diagnostics.Debug.WriteLine(project.Name + " is " + project.Platform);
             }
             catch(Exception e)
             {

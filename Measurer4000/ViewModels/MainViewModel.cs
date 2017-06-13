@@ -1,6 +1,7 @@
-﻿using Measurer4000.Models;
+﻿using Measurer4000.core.Models;
+using Measurer4000.core.Services;
+using Measurer4000.core.Services.Interfaces;
 using Measurer4000.Services;
-using Measurer4000.Services.Interfaces;
 using Measurer4000.ViewModels.Base;
 using System;
 using System.Collections.Generic;

@@ -55,18 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Models\CodeStats.cs" />
-    <Compile Include="Models\EnumPlatform.cs" />
-    <Compile Include="Models\EnumTypeFile.cs" />
-    <Compile Include="Models\ProgrammingFile.cs" />
-    <Compile Include="Models\Project.cs" />
     <Compile Include="ServiceLocator.cs" />
     <Compile Include="Services\FileDialogService.cs" />
-    <Compile Include="Services\Interfaces\IFileDialogService.cs" />
-    <Compile Include="Services\Interfaces\IMeasurerService.cs" />
-    <Compile Include="Services\MeasureService.cs" />
-    <Compile Include="Utils\MeasureUtils.cs" />
-    <Compile Include="Utils\ProjectIdentificatorUtils.cs" />
     <Compile Include="ValueConverters\NotVisibilityConverter.cs" />
     <Compile Include="ValueConverters\VisibilityValueConverter.cs" />
     <Compile Include="ViewModels\Base\BaseViewModel.cs" />
@@ -86,7 +76,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Solution.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -113,7 +102,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Measurer4000.core\Measurer4000.core.csproj">
+      <Project>{9d96c6da-6ef9-4144-ad1c-15d400f10bd9}</Project>
+      <Name>Measurer4000.core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

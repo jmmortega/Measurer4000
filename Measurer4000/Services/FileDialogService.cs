@@ -1,4 +1,4 @@
-﻿using Measurer4000.Services.Interfaces;
+﻿using Measurer4000.core.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
