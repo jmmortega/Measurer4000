@@ -62,6 +62,12 @@ namespace Measurer4000.mac
 
 		[Outlet]
 		AppKit.NSTextField UIFiles { get; set; }
+
+		[Action ("ButtonOpenFileClick:")]
+		partial void ButtonOpenFileClick (Foundation.NSObject sender);
+
+		[Action ("ShareLinkClick:")]
+		partial void ShareLinkClick (Foundation.NSObject sender);
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -78,6 +84,11 @@ namespace Measurer4000.mac
 			if (AndroidLOC != null) {
 				AndroidLOC.Dispose ();
 				AndroidLOC = null;
+			}
+
+			if (ButtonOpenFile != null) {
+				ButtonOpenFile.Dispose ();
+				ButtonOpenFile = null;
 			}
 
 			if (CodeFiles != null) {
@@ -100,6 +111,11 @@ namespace Measurer4000.mac
 				iOSLOC = null;
 			}
 
+			if (ProgressBar != null) {
+				ProgressBar.Dispose ();
+				ProgressBar = null;
+			}
+
 			if (ShareCodeInAndroid != null) {
 				ShareCodeInAndroid.Dispose ();
 				ShareCodeInAndroid = null;
@@ -108,6 +124,11 @@ namespace Measurer4000.mac
 			if (ShareCodeIniOS != null) {
 				ShareCodeIniOS.Dispose ();
 				ShareCodeIniOS = null;
+			}
+
+			if (ShareLink != null) {
+				ShareLink.Dispose ();
+				ShareLink = null;
 			}
 
 			if (ShareUIInAndroid != null) {
@@ -133,21 +154,6 @@ namespace Measurer4000.mac
 			if (UIFiles != null) {
 				UIFiles.Dispose ();
 				UIFiles = null;
-			}
-
-			if (ButtonOpenFile != null) {
-				ButtonOpenFile.Dispose ();
-				ButtonOpenFile = null;
-			}
-
-			if (ProgressBar != null) {
-				ProgressBar.Dispose ();
-				ProgressBar = null;
-			}
-
-			if (ShareLink != null) {
-				ShareLink.Dispose ();
-				ShareLink = null;
 			}
 		}
 	}

@@ -33,5 +33,15 @@ namespace Measurer4000.mac
         {
             get { return (MainWindow)base.Window; }
         }
+
+		partial void ButtonOpenFileClick(Foundation.NSObject sender)
+		{
+            AmountOfFiles.StringValue = "FUNCIONA!";
+        }
+
+        partial void ShareLinkClick(NSObject sender)
+        {
+            TotalLOC.StringValue = "15142";
+        }
     }
 }
