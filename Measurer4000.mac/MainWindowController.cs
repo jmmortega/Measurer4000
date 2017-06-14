@@ -41,7 +41,7 @@ namespace Measurer4000.mac
 
         partial void ShareLinkClick(NSObject sender)
         {
-            TotalLOC.StringValue = "15142";
+            System.IO.Stream j = NSFileHandle.OpenRead("/path").ReadDataToEndOfFile().AsStream();
         }
     }
 }

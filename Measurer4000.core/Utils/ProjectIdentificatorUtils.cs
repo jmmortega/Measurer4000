@@ -30,7 +30,6 @@ namespace Measurer4000.Core.Utils
             {
                 if(solutionReader != null)
                 {
-                    solutionReader.Close();
                     solutionReader.Dispose();
                 }
             }

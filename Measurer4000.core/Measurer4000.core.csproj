@@ -44,6 +44,7 @@
     <Compile Include="Services\Interfaces\IFileDialogService.cs" />
     <Compile Include="Services\Interfaces\IMeasurerService.cs" />
     <Compile Include="Services\MeasureService.cs" />
+    <Compile Include="Utils\Interfaces\IFileManager.cs" />
     <Compile Include="Utils\MeasureUtils.cs" />
     <Compile Include="Utils\ProjectIdentificatorUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
