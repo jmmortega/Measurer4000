@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Measurer4000.core.Models
+namespace Measurer4000.Core.Models
 {
     public class CodeStats
     {

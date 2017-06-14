@@ -19,6 +19,10 @@ namespace Measurer4000.mac
         public MainWindowController() : base("MainWindow")
         {
         }
+        public override void WindowDidLoad()
+        {
+            base.WindowDidLoad();
+        }
 
         public override void AwakeFromNib()
         {

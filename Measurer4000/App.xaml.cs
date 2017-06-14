@@ -1,5 +1,5 @@
 ﻿using Measurer4000.Services;
-using Measurer4000.core.Services;
+using Measurer4000.Core.Services;
 using System.Windows;
 
 namespace Measurer4000

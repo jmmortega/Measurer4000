@@ -1,4 +1,4 @@
-﻿using Measurer4000.core.Models;
+﻿using Measurer4000.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Measurer4000.core.Utils
+namespace Measurer4000.Core.Utils
 {
     public static class MeasureUtils
     {

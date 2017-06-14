@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Measurer4000.core.Models
+namespace Measurer4000.Core.Models
 {
     public class Solution
     {
