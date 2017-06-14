@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 
 using Foundation;
 using AppKit;
@@ -11,6 +11,7 @@ namespace Measurer4000.mac
         {
         }
 
+        private System.IO.StreamReader file;
         [Export("initWithCoder:")]
         public MainWindowController(NSCoder coder) : base(coder)
         {
@@ -21,6 +22,10 @@ namespace Measurer4000.mac
         }
         public override void WindowDidLoad()
         {
+			string path = "/Users/diegofafe/Documents/test.html";
+
+			System.IO.Stream j = NSFileHandle.OpenRead(path).ReadDataToEndOfFile().AsStream();
+            file = new System.IO.StreamReader(j);
             base.WindowDidLoad();
         }
 
@@ -34,14 +39,14 @@ namespace Measurer4000.mac
             get { return (MainWindow)base.Window; }
         }
 
-		partial void ButtonOpenFileClick(Foundation.NSObject sender)
-		{
-            AmountOfFiles.StringValue = "FUNCIONA!";
+        partial void ButtonOpenFileClick(Foundation.NSObject sender)
+        {
+            if (!file.EndOfStream) ShareLink.StringValue = file.ReadLine();
         }
 
         partial void ShareLinkClick(NSObject sender)
         {
-            System.IO.Stream j = NSFileHandle.OpenRead("/path").ReadDataToEndOfFile().AsStream();
+            
         }
     }
 }
