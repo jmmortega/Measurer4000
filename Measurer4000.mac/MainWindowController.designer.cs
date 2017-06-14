@@ -22,6 +22,9 @@ namespace Measurer4000.mac
 		AppKit.NSTextField AndroidLOC { get; set; }
 
 		[Outlet]
+		AppKit.NSButton ButtonOpenFile { get; set; }
+
+		[Outlet]
 		AppKit.NSTextField CodeFiles { get; set; }
 
 		[Outlet]
@@ -34,10 +37,16 @@ namespace Measurer4000.mac
 		AppKit.NSTextField iOSLOC { get; set; }
 
 		[Outlet]
+		AppKit.NSProgressIndicator ProgressBar { get; set; }
+
+		[Outlet]
 		AppKit.NSTextField ShareCodeInAndroid { get; set; }
 
 		[Outlet]
 		AppKit.NSTextField ShareCodeIniOS { get; set; }
+
+		[Outlet]
+		AppKit.NSTextField ShareLink { get; set; }
 
 		[Outlet]
 		AppKit.NSTextField ShareUIInAndroid { get; set; }
@@ -56,29 +65,19 @@ namespace Measurer4000.mac
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (ShareCodeInAndroid != null) {
-				ShareCodeInAndroid.Dispose ();
-				ShareCodeInAndroid = null;
-			}
-
-			if (ShareUIInAndroid != null) {
-				ShareUIInAndroid.Dispose ();
-				ShareUIInAndroid = null;
-			}
-
-			if (ShareCodeIniOS != null) {
-				ShareCodeIniOS.Dispose ();
-				ShareCodeIniOS = null;
-			}
-
-			if (ShareUIIniOS != null) {
-				ShareUIIniOS.Dispose ();
-				ShareUIIniOS = null;
-			}
-
 			if (AmountOfFiles != null) {
 				AmountOfFiles.Dispose ();
 				AmountOfFiles = null;
+			}
+
+			if (AndroidFiles != null) {
+				AndroidFiles.Dispose ();
+				AndroidFiles = null;
+			}
+
+			if (AndroidLOC != null) {
+				AndroidLOC.Dispose ();
+				AndroidLOC = null;
 			}
 
 			if (CodeFiles != null) {
@@ -86,9 +85,39 @@ namespace Measurer4000.mac
 				CodeFiles = null;
 			}
 
-			if (UIFiles != null) {
-				UIFiles.Dispose ();
-				UIFiles = null;
+			if (CoreLOC != null) {
+				CoreLOC.Dispose ();
+				CoreLOC = null;
+			}
+
+			if (iOSFiles != null) {
+				iOSFiles.Dispose ();
+				iOSFiles = null;
+			}
+
+			if (iOSLOC != null) {
+				iOSLOC.Dispose ();
+				iOSLOC = null;
+			}
+
+			if (ShareCodeInAndroid != null) {
+				ShareCodeInAndroid.Dispose ();
+				ShareCodeInAndroid = null;
+			}
+
+			if (ShareCodeIniOS != null) {
+				ShareCodeIniOS.Dispose ();
+				ShareCodeIniOS = null;
+			}
+
+			if (ShareUIInAndroid != null) {
+				ShareUIInAndroid.Dispose ();
+				ShareUIInAndroid = null;
+			}
+
+			if (ShareUIIniOS != null) {
+				ShareUIIniOS.Dispose ();
+				ShareUIIniOS = null;
 			}
 
 			if (TotalLOC != null) {
@@ -101,29 +130,24 @@ namespace Measurer4000.mac
 				TotalUILines = null;
 			}
 
-			if (AndroidFiles != null) {
-				AndroidFiles.Dispose ();
-				AndroidFiles = null;
+			if (UIFiles != null) {
+				UIFiles.Dispose ();
+				UIFiles = null;
 			}
 
-			if (iOSFiles != null) {
-				iOSFiles.Dispose ();
-				iOSFiles = null;
+			if (ButtonOpenFile != null) {
+				ButtonOpenFile.Dispose ();
+				ButtonOpenFile = null;
 			}
 
-			if (AndroidLOC != null) {
-				AndroidLOC.Dispose ();
-				AndroidLOC = null;
+			if (ProgressBar != null) {
+				ProgressBar.Dispose ();
+				ProgressBar = null;
 			}
 
-			if (iOSLOC != null) {
-				iOSLOC.Dispose ();
-				iOSLOC = null;
-			}
-
-			if (CoreLOC != null) {
-				CoreLOC.Dispose ();
-				CoreLOC = null;
+			if (ShareLink != null) {
+				ShareLink.Dispose ();
+				ShareLink = null;
 			}
 		}
 	}
