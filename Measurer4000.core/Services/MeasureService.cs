@@ -30,12 +30,6 @@ namespace Measurer4000.Core.Services
         public Solution Measure(Solution solution)
         {
             MeasureUtils.File = FileManagerService;
-            foreach(Project project in solution.Projects){
-                foreach(ProgrammingFile programmingFile in project.Files){
-                    programmingFile.LOC = MeasureUtils.CalculateLOC(programmingFile);
-                }
-            }
-            /*
             Parallel.ForEach(solution.Projects, (project) =>
             {
                 Parallel.ForEach(project.Files, (programmingFile) =>
@@ -43,7 +37,6 @@ namespace Measurer4000.Core.Services
                     programmingFile.LOC = MeasureUtils.CalculateLOC(programmingFile);
                 });
             });
-            */
             return solution;
         }
     }
