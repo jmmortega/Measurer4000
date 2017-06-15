@@ -57,6 +57,7 @@
     </ApplicationDefinition>
     <Compile Include="ServiceLocator.cs" />
     <Compile Include="Services\FileDialogService.cs" />
+    <Compile Include="Services\FileManagerService.cs" />
     <Compile Include="ValueConverters\NotVisibilityConverter.cs" />
     <Compile Include="ValueConverters\VisibilityValueConverter.cs" />
     <Compile Include="ViewModels\Base\BaseViewModel.cs" />

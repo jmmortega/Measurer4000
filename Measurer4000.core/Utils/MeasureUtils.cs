@@ -5,11 +5,13 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Measurer4000.Core.Services.Interfaces;
 
 namespace Measurer4000.Core.Utils
 {
     public static class MeasureUtils
     {
+        public static IFileManagerService File;
         public static long CalculateLOC(ProgrammingFile programmingFile)
         {
             if(programmingFile.TypeFile == EnumTypeFile.AXML)
@@ -61,7 +63,6 @@ namespace Measurer4000.Core.Utils
             {
                 if(reader != null)
                 {
-                    reader.Close();
                     reader.Dispose();
                 }
             }
@@ -95,7 +96,6 @@ namespace Measurer4000.Core.Utils
             {
                 if(reader != null)
                 {
-                    reader.Close();
                     reader.Dispose();
                 }
             }

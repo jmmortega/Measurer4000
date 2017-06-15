@@ -1,4 +1,5 @@
 ﻿using Measurer4000.Core.Models;
+using Measurer4000.Core.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,6 +8,7 @@ namespace Measurer4000.Core.Utils
 {
     public static class ProjectIdentificatorUtils
     {
+        public static IFileManagerService File;
         public static List<string> ReadProjectsLines(string filePathToSolution)
         {
             var projects = new List<string>();
@@ -62,8 +64,7 @@ namespace Measurer4000.Core.Utils
             try
             {
                 projectReader = new StreamReader(File.OpenRead(Path.Combine(
-                    new FileInfo(pathToSolution).Directory.FullName,
-                    project.Path)));
+                    Path.GetDirectoryName(pathToSolution), project.Path)));
 
                 while(!projectReader.EndOfStream)
                 {
@@ -77,9 +78,8 @@ namespace Measurer4000.Core.Utils
                     {
                         if (ItsAValidFile(line))
                         {
-                            project.Files.Add(WellSmellsLikeFile(line,
-                                new FileInfo(Path.Combine(new FileInfo(pathToSolution).Directory.FullName,
-                                    project.Path)).Directory.FullName));
+                            project.Files.Add(WellSmellsLikeFile(line, Path.GetDirectoryName(
+                                (Path.Combine(Path.GetDirectoryName(pathToSolution), project.Path)))));
                             System.Diagnostics.Debug.WriteLine(line + (project.Files[project.Files.Count-1].IsUserInterface ? " is" : " isnt")+" UI");
                         }                     
                     }
@@ -94,7 +94,6 @@ namespace Measurer4000.Core.Utils
             {
                 if(projectReader != null)
                 {
-                    projectReader.Close();
                     projectReader.Dispose();
                 }
             }

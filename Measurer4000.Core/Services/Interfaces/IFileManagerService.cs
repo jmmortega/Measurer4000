@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace Measurer4000.Core.Utils.Interfaces
+namespace Measurer4000.Core.Services.Interfaces
 {
-    interface IFileManager
+    public interface IFileManagerService
     {
         Stream OpenRead(string filePath);
     }

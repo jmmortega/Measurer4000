@@ -9,8 +9,16 @@ namespace Measurer4000.Core.Services
 {
     public class MeasureService : IMeasurerService
     {
+        private IFileManagerService _fileManagerService;
+        public IFileManagerService FileManagerService
+        {
+            get { return _fileManagerService; }
+            set { _fileManagerService = value; }
+        }
+
         public Solution GetProjects(string filePathToSolution)
         {
+            ProjectIdentificatorUtils.File = FileManagerService;
             List<string> ProjectLines = ProjectIdentificatorUtils.ReadProjectsLines(filePathToSolution);
             List<Project> SolutionProjects = ProjectIdentificatorUtils.TranslateProjectsLinesToProjects(ProjectLines);
             Parallel.ForEach(SolutionProjects, (hit) => {
@@ -21,6 +29,7 @@ namespace Measurer4000.Core.Services
 
         public Solution Measure(Solution solution)
         {
+            MeasureUtils.File = FileManagerService;
             Parallel.ForEach(solution.Projects, (project) =>
             {
                 Parallel.ForEach(project.Files, (programmingFile) =>

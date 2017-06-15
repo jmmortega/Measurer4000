@@ -15,12 +15,13 @@ namespace Measurer4000.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        private readonly IMeasurerService _measureService;
+        private readonly MeasureService _measureService;
         private readonly IDialogService _fileDialogService;
 
         public MainViewModel()
         {
             _measureService = ServiceLocator.Get<MeasureService>();
+            _measureService.FileManagerService = new FileManagerService();
             _fileDialogService = ServiceLocator.Get<FileDialogService>();
         }
 
