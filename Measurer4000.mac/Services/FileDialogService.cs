@@ -24,7 +24,7 @@ namespace Measurer4000.mac.Services
                 };
                 if (fileDialog.RunModal() == (int)NSModalResponse.OK)
                 {
-                    onFileDialogSuccess?.Invoke(fileDialog.Url.AbsoluteString);
+                    onFileDialogSuccess?.Invoke(fileDialog.Url.Path);
                 }
             }
             catch(Exception e)

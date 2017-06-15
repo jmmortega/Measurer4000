@@ -51,7 +51,7 @@ namespace Measurer4000.Core.Utils
                 projects.Add(new Project()
                 {
                     Name = thatINeedSplitted[0].Trim().Trim('"'),
-                    Path = thatINeedSplitted[1].Trim().Trim('"')
+                    Path = thatINeedSplitted[1].Trim().Trim('"').Replace("\\", "/")
                 });                
             }
 
@@ -78,6 +78,8 @@ namespace Measurer4000.Core.Utils
                     {
                         if (ItsAValidFile(line))
                         {
+                            var t = Path.Combine(Path.GetDirectoryName(pathToSolution), project.Path);
+                            var t2 = Path.GetDirectoryName(t);
                             project.Files.Add(WellSmellsLikeFile(line, Path.GetDirectoryName(
                                 (Path.Combine(Path.GetDirectoryName(pathToSolution), project.Path)))));
                             System.Diagnostics.Debug.WriteLine(line + (project.Files[project.Files.Count-1].IsUserInterface ? " is" : " isnt")+" UI");

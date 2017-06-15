@@ -13,14 +13,13 @@ namespace Measurer4000.mac
 {
     public partial class MainWindowController : NSWindowController
     {
-        private readonly IDialogService _fileDialogService = ServiceLocator.Get<FileDialogService>();
-        private readonly MeasureService _measureService = ServiceLocator.Get<MeasureService>();
+        private readonly IDialogService _fileDialogService = new FileDialogService();
+        private readonly MeasureService _measureService = new MeasureService();
         private Solution _currentSolution;
         public MainWindowController(IntPtr handle) : base(handle)
         {
         }
 
-        private System.IO.StreamReader file;
         [Export("initWithCoder:")]
         public MainWindowController(NSCoder coder) : base(coder)
         {
@@ -113,20 +112,20 @@ namespace Measurer4000.mac
                 TotalLinesInAndroid = _currentSolution.Projects.Where(x => x.Platform == EnumPlatform.Android).SelectMany(x => x.Files).Sum(x => x.LOC),
                 TotalLinesIniOS = _currentSolution.Projects.Where(x => x.Platform == EnumPlatform.iOS).SelectMany(x => x.Files).Sum(x => x.LOC)
             };
-            AmountOfFiles.StringValue = _currentSolution.Stats.AmountOfFiles.ToString("F2",CultureInfo.InvariantCulture);
-            AndroidFiles.StringValue = _currentSolution.Stats.AndroidFiles.ToString("F2", CultureInfo.InvariantCulture);
-            AndroidLOC.StringValue = _currentSolution.Stats.TotalLinesInAndroid.ToString("F2", CultureInfo.InvariantCulture);
-            CodeFiles.StringValue = _currentSolution.Stats.CodeFiles.ToString("F2", CultureInfo.InvariantCulture);
-            CoreLOC.StringValue = _currentSolution.Stats.TotalLinesCore.ToString("F2", CultureInfo.InvariantCulture);
-            iOSFiles.StringValue = _currentSolution.Stats.iOSFiles.ToString("F2", CultureInfo.InvariantCulture);
-            iOSLOC.StringValue = _currentSolution.Stats.TotalLinesIniOS.ToString("F2", CultureInfo.InvariantCulture);
+            AmountOfFiles.StringValue = _currentSolution.Stats.AmountOfFiles.ToString();
+            AndroidFiles.StringValue = _currentSolution.Stats.AndroidFiles.ToString();
+            AndroidLOC.StringValue = _currentSolution.Stats.TotalLinesInAndroid.ToString();
+            CodeFiles.StringValue = _currentSolution.Stats.CodeFiles.ToString();
+            CoreLOC.StringValue = _currentSolution.Stats.TotalLinesCore.ToString();
+            iOSFiles.StringValue = _currentSolution.Stats.iOSFiles.ToString();
+            iOSLOC.StringValue = _currentSolution.Stats.TotalLinesIniOS.ToString();
             ShareCodeInAndroid.StringValue = _currentSolution.Stats.ShareCodeInAndroid.ToString("F2", CultureInfo.InvariantCulture);
             ShareCodeIniOS.StringValue = _currentSolution.Stats.ShareCodeIniOS.ToString("F2", CultureInfo.InvariantCulture);
             ShareUIInAndroid.StringValue = _currentSolution.Stats.ShareUIInAndroid.ToString("F2", CultureInfo.InvariantCulture);
             ShareUIIniOS.StringValue = _currentSolution.Stats.ShareUIIniOS.ToString("F2", CultureInfo.InvariantCulture);
-            TotalLOC.StringValue = _currentSolution.Stats.TotalLinesOfCode.ToString("F2", CultureInfo.InvariantCulture);
-            TotalUILines.StringValue = _currentSolution.Stats.TotalLinesOfUI.ToString("F2", CultureInfo.InvariantCulture);
-            UIFiles.StringValue = _currentSolution.Stats.UIFiles.ToString("F2", CultureInfo.InvariantCulture);
+            TotalLOC.StringValue = _currentSolution.Stats.TotalLinesOfCode.ToString();
+            TotalUILines.StringValue = _currentSolution.Stats.TotalLinesOfUI.ToString();
+            UIFiles.StringValue = _currentSolution.Stats.UIFiles.ToString();
             ButtonOpenFile.Enabled = true;
             ProgressBar.StopAnimation(this);
         }
