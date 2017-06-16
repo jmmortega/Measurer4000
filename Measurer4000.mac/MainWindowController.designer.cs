@@ -25,6 +25,9 @@ namespace Measurer4000.mac
 		AppKit.NSButton ButtonOpenFile { get; set; }
 
 		[Outlet]
+		AppKit.NSButton ButtonShareLink { get; set; }
+
+		[Outlet]
 		AppKit.NSTextField CodeFiles { get; set; }
 
 		[Outlet]
@@ -65,6 +68,9 @@ namespace Measurer4000.mac
 
 		[Action ("ButtonOpenFileClick:")]
 		partial void ButtonOpenFileClick (Foundation.NSObject sender);
+
+		[Action ("ButtonShareLinkClick:")]
+		partial void ButtonShareLinkClick (Foundation.NSObject sender);
 
 		[Action ("ShareLinkClick:")]
 		partial void ShareLinkClick (Foundation.NSObject sender);
@@ -154,6 +160,11 @@ namespace Measurer4000.mac
 			if (UIFiles != null) {
 				UIFiles.Dispose ();
 				UIFiles = null;
+			}
+
+			if (ButtonShareLink != null) {
+				ButtonShareLink.Dispose ();
+				ButtonShareLink = null;
 			}
 		}
 	}
