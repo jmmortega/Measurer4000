@@ -1,5 +1,8 @@
 ﻿using AppKit;
 using Foundation;
+using Measurer4000.Core.Services;
+using Measurer4000.Core.Services.Interfaces;
+using Measurer4000.mac.Services;
 
 namespace Measurer4000.mac
 {
@@ -14,6 +17,10 @@ namespace Measurer4000.mac
 
         public override void DidFinishLaunching(NSNotification notification)
         {
+            ServiceLocator.Register<IDialogService>(new FileDialogService());
+            ServiceLocator.Register<IMeasurerService>(new MeasureService(new FileManagerService()));
+            ServiceLocator.Register<IWebBrowserTaskService>(new WebBrowserMacTaskService());
+
             mainWindowController = new MainWindowController();
             mainWindowController.Window.MakeKeyAndOrderFront(this);
         }

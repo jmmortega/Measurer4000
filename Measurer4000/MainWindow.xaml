@@ -117,7 +117,7 @@
 
         <StackPanel Grid.Row="3">
             <TextBlock Foreground="Blue">
-                <Hyperlink NavigateUri="https://docs.google.com/forms/d/e/1FAIpQLSe1CMNFNnAh_GoZ3z9PD7d5a07CUd9zOVk3sywURY__zHMytA/viewform" RequestNavigate="Hyperlink_RequestNavigate" IsEnabled="{Binding IsBusy, Converter={StaticResource NotVisibilityConverter}}">
+                <Hyperlink Command="{Binding CommandShareLink}" IsEnabled="{Binding IsBusy, Converter={StaticResource NotVisibilityConverter}}">
                 "Please share your results in stats page. Thank you"
                 </Hyperlink>
             </TextBlock>

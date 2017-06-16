@@ -2,29 +2,21 @@
 using Measurer4000.Core.Services;
 using Measurer4000.Core.Utils;
 using Measurer4000.Core.Services.Interfaces;
-using Measurer4000.Services;
-using Measurer4000.ViewModels.Base;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using System.Diagnostics;
-using System.Windows.Navigation;
-
+using Measurer4000.Core.ViewModels.Base;
 
 namespace Measurer4000.Core.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        private readonly MeasureService _measureService;
+        private readonly IMeasurerService _measureService;
         private readonly IDialogService _fileDialogService;
-
+        
         public MainViewModel()
         {
-            _measureService = ServiceLocator.Get<MeasureService>();
-            _fileDialogService = ServiceLocator.Get<FileDialogService>();
+            _measureService = ServiceLocator.Get<IMeasurerService>();
+            _fileDialogService = ServiceLocator.Get<IDialogService>();
         }
 
         private bool _isBusy;
@@ -58,6 +50,18 @@ namespace Measurer4000.Core.ViewModels
                     _fileDialogService.OpenFileDialog(
                         (solutionPath) => OpenSolutionPath(solutionPath),
                         (error) => ShowError(error));                        
+                });
+            }
+        }
+
+        public ICommand CommandShareLink
+        {
+            get
+            {
+                return new Command(() =>
+                {
+                    var url = ShareCodeReportUtils.CreateShareUrl(_stats);
+                    ServiceLocator.Get<IWebBrowserTaskService>().Navigate(url);
                 });
             }
         }

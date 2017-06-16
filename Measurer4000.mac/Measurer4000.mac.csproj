@@ -89,6 +89,7 @@
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Services\FileDialogService.cs" />
     <Compile Include="Services\FileManagerService.cs" />
+    <Compile Include="Services\WebBrowserMacTaskService.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainMenu.xib" />

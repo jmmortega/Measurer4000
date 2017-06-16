@@ -57,6 +57,7 @@
     </ApplicationDefinition>
     <Compile Include="Services\FileDialogService.cs" />
     <Compile Include="Services\FileManagerService.cs" />
+    <Compile Include="Services\WebBrowserWPFTaskService.cs" />
     <Compile Include="ValueConverters\NotVisibilityConverter.cs" />
     <Compile Include="ValueConverters\VisibilityValueConverter.cs" />
     <Page Include="MainWindow.xaml">

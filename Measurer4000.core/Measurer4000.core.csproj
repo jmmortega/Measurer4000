@@ -41,14 +41,16 @@
     <Compile Include="Models\ProgrammingFile.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\Solution.cs" />
+    <Compile Include="Services\Interfaces\IWebBrowserTaskService.cs" />
     <Compile Include="Services\ServiceLocator.cs" />
-    <Compile Include="Services\Interfaces\IFileDialogService.cs" />
+    <Compile Include="Services\Interfaces\IDialogService.cs" />
     <Compile Include="Services\Interfaces\IFileManagerService.cs" />
     <Compile Include="Services\Interfaces\IMeasurerService.cs" />
     <Compile Include="Services\MeasureService.cs" />
     <Compile Include="Utils\MeasureUtils.cs" />
     <Compile Include="Utils\ProjectIdentificatorUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\ShareCodeReportUtils.cs" />
     <Compile Include="ViewModel\Base\BaseViewModel.cs" />
     <Compile Include="ViewModel\Base\Command.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
