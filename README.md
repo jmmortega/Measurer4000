@@ -6,7 +6,7 @@ and calculate its perfomance in sharing code and UI between platforms.
 ## Building
 
 Clone this repository and open the solution in `build/Measurer4000.sln` with 
-Visual Studio or Xamarin Studio and press F7.
+Visual Studio or Xamarin Studio and press F5.
 
 ## Usage
 
