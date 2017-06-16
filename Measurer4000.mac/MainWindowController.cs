@@ -35,6 +35,7 @@ namespace Measurer4000.mac
         }
         public override void WindowDidLoad()
         {
+            ButtonShareLink.Enabled = true;
             base.WindowDidLoad();
         }
 
@@ -55,9 +56,16 @@ namespace Measurer4000.mac
                         (error) => ShowError(error));
         }
 
-        partial void ShareLinkClick(NSObject sender)
+        partial void ButtonShareLinkClick(NSObject sender)
         {
-
+            NSUrl shareUrl = new NSUrl("https://docs.google.com/forms/d/e/1FAIpQLSe1CMNFNnAh_GoZ3z9PD7d5a07CUd9zOVk3sywURY__zHMytA/viewform?" +
+                                       "entry.187884389=" + ShareCodeIniOS.StringValue +
+                                       "&entry.1649909781=" + ShareCodeIniOS.StringValue +
+                                       "&entry.1981106453=" + ShareUIIniOS.StringValue +
+                                       "&entry.827223542=" + ShareUIInAndroid.StringValue +
+                                       "&entry.1102590771=" + TotalLOC.StringValue +
+                                       "&entry.2068980640&entry.767914800&entry.1673597349&entry.1583496322");
+            NSWorkspace.SharedWorkspace.OpenUrl(shareUrl);
         }
 
         private void ShowError(Exception e)

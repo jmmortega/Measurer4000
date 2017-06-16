@@ -315,22 +315,8 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WgO-j5-Pis">
-                        <rect key="frame" x="20" y="8" width="333" height="60"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="ODr-N1-IW1">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                            <connections>
-                                <binding destination="-2" name="argument" keyPath="self.UIFiles" id="9Ka-lE-dfX"/>
-                            </connections>
-                        </buttonCell>
-                        <connections>
-                            <action selector="ButtonShareLinkClick:" target="-2" id="jij-xm-DNo"/>
-                        </connections>
-                    </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OLK-9Y-wUo">
-                        <rect key="frame" x="19" y="27" width="319" height="17"/>
+                        <rect key="frame" x="18" y="24" width="319" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="&quot;Please share your results in stats page. Thank you&quot;" id="MLH-cv-1Wo">
                             <font key="font" metaFont="system"/>
@@ -341,6 +327,20 @@
                             <action selector="ShareLinkClick:" target="-2" id="0ce-Nx-jcs"/>
                         </connections>
                     </textField>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WgO-j5-Pis">
+                        <rect key="frame" x="14" y="13" width="333" height="32"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="push" bezelStyle="rounded" alignment="center" borderStyle="border" transparent="YES" imageScaling="proportionallyDown" inset="2" id="ODr-N1-IW1">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <connections>
+                                <binding destination="-2" name="argument" keyPath="self.UIFiles" id="9Ka-lE-dfX"/>
+                            </connections>
+                        </buttonCell>
+                        <connections>
+                            <action selector="ButtonShareLinkClick:" target="-2" id="jij-xm-DNo"/>
+                        </connections>
+                    </button>
                 </subviews>
             </view>
         </window>
