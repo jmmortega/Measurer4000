@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Measurer4000.ViewModels.Base
+namespace Measurer4000.Core.ViewModels.Base
 {
     public class Command : ICommand
     {

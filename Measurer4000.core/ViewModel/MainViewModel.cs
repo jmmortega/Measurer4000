@@ -14,7 +14,7 @@ using System.Diagnostics;
 using System.Windows.Navigation;
 
 
-namespace Measurer4000.ViewModels
+namespace Measurer4000.Core.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
