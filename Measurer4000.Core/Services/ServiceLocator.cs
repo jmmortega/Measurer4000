@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Measurer4000
+namespace Measurer4000.Core.Services
 {
     public static class ServiceLocator
     {
@@ -14,7 +14,7 @@ namespace Measurer4000
                 return (T)_services[typeof(T)];
             }
 
-            throw new ApplicationException($"Service {typeof(T)} not register");
+            throw new Exception($"Service {typeof(T)} not register");
         }
 
         public static void Register<T>(T implementation)

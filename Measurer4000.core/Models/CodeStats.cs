@@ -12,9 +12,9 @@ namespace Measurer4000.Core.Models
 
         public double ShareCodeIniOS { get; set; }
 
-        public double ShareUIInAndroid { get; set; }
+        public double AndroidSpecificCode { get; set; }
 
-        public double ShareUIIniOS { get; set; }
+        public double iOSSpecificCode { get; set; }
 
         public long AmountOfFiles { get; set; }
 

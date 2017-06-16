@@ -10,15 +10,12 @@ namespace Measurer4000.Core.Services
     public class MeasureService : IMeasurerService
     {
         private IFileManagerService _fileManagerService;
-        public IFileManagerService FileManagerService
-        {
-            get { return _fileManagerService; }
-            set { _fileManagerService = value; }
-        }
+
+        public MeasureService(IFileManagerService file) { _fileManagerService = file;}
 
         public Solution GetProjects(string filePathToSolution)
         {
-            ProjectIdentificatorUtils.File = FileManagerService;
+            ProjectIdentificatorUtils.File = _fileManagerService;
             List<string> ProjectLines = ProjectIdentificatorUtils.ReadProjectsLines(filePathToSolution);
             List<Project> SolutionProjects = ProjectIdentificatorUtils.TranslateProjectsLinesToProjects(ProjectLines);
             Parallel.ForEach(SolutionProjects, (hit) => {
@@ -29,7 +26,7 @@ namespace Measurer4000.Core.Services
 
         public Solution Measure(Solution solution)
         {
-            MeasureUtils.File = FileManagerService;
+            MeasureUtils.File = _fileManagerService;
             Parallel.ForEach(solution.Projects, (project) =>
             {
                 Parallel.ForEach(project.Files, (programmingFile) =>

@@ -12,7 +12,7 @@ namespace Measurer4000
         public App()
         {
             ServiceLocator.Register<FileDialogService>(new FileDialogService());
-            ServiceLocator.Register<MeasureService>(new MeasureService());
+            ServiceLocator.Register<MeasureService>(new MeasureService(new FileManagerService()));
         }
         
     }

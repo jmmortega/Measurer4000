@@ -55,7 +55,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ServiceLocator.cs" />
     <Compile Include="Services\FileDialogService.cs" />
     <Compile Include="Services\FileManagerService.cs" />
     <Compile Include="ValueConverters\NotVisibilityConverter.cs" />

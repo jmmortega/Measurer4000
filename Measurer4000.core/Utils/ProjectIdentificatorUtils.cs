@@ -34,8 +34,7 @@ namespace Measurer4000.Core.Utils
                 {
                     solutionReader.Dispose();
                 }
-            }
-                        
+            }        
             return projects;
         }
 
@@ -78,8 +77,6 @@ namespace Measurer4000.Core.Utils
                     {
                         if (ItsAValidFile(line))
                         {
-                            var t = Path.Combine(Path.GetDirectoryName(pathToSolution), project.Path);
-                            var t2 = Path.GetDirectoryName(t);
                             project.Files.Add(WellSmellsLikeFile(line, Path.GetDirectoryName(
                                 (Path.Combine(Path.GetDirectoryName(pathToSolution), project.Path)))));
                             System.Diagnostics.Debug.WriteLine(line + (project.Files[project.Files.Count-1].IsUserInterface ? " is" : " isnt")+" UI");

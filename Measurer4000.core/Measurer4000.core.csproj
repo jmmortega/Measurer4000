@@ -41,7 +41,7 @@
     <Compile Include="Models\ProgrammingFile.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\Solution.cs" />
-    <Compile Include="ServiceLocator.cs" />
+    <Compile Include="Services\ServiceLocator.cs" />
     <Compile Include="Services\Interfaces\IFileDialogService.cs" />
     <Compile Include="Services\Interfaces\IFileManagerService.cs" />
     <Compile Include="Services\Interfaces\IMeasurerService.cs" />
