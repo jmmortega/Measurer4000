@@ -20,4 +20,4 @@ the community filling [this form](https://docs.google.com/forms/d/e/1FAIpQLSe1CM
 label() this will autofill your application stats.
 
 If you're interested in the perfomance in sharing of other applications, 
-you can take a look at the stats [here](public view of form answers)
+you can take a look at the stats [here](https://drive.google.com/open?id=1OwOQAZB1lR-0k0pu3_NowtYzGAG8iNoM612_rfdomsE)
