@@ -3,14 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Measurer4000"
+        xmlns:local="clr-namespace:Measurer4000" 
+        xmlns:oxyplot="http://oxyplot.org/wpf" 
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Measurer4000" Height="600" Width="720">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="10"/>
-            <RowDefinition Height="7*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="150"/>
             <RowDefinition Height="20"/>
             <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
@@ -115,7 +117,20 @@
             </StackPanel>
         </Grid>
 
-        <StackPanel Grid.Row="3">
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <oxyplot:PlotView
+                Grid.Column="0"
+                Model="{Binding AndroidPlotModel}" />
+            <oxyplot:PlotView
+                Grid.Column="1"
+                Model="{Binding IosPlotModel}" />
+        </Grid>
+        
+        <StackPanel Grid.Row="4">
             <TextBlock Foreground="Blue">
                 <Hyperlink Command="{Binding CommandShareLink}" IsEnabled="{Binding IsBusy, Converter={StaticResource NotVisibilityConverter}}">
                 "Please share your results in stats page. Thank you"

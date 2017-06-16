@@ -5,6 +5,8 @@ using Measurer4000.Core.Services.Interfaces;
 using System;
 using System.Windows.Input;
 using Measurer4000.Core.ViewModels.Base;
+using OxyPlot;
+using OxyPlot.Series;
 
 namespace Measurer4000.Core.ViewModels
 {
@@ -40,6 +42,30 @@ namespace Measurer4000.Core.ViewModels
         }
 
         private Solution _currentSolution;
+
+        private PlotModel _androidPlotModel;
+
+        public PlotModel AndroidPlotModel
+        {
+            get { return _androidPlotModel; }
+            set
+            {
+                _androidPlotModel = value;
+                RaiseProperty();
+            }
+        }
+
+        private PlotModel _iosPlotModel;
+
+        public PlotModel IosPlotModel
+        {
+            get { return _iosPlotModel; }
+            set
+            {
+                _iosPlotModel = value;
+                RaiseProperty();
+            }
+        }
 
         public ICommand CommandSelectFile
         {
@@ -79,12 +105,56 @@ namespace Measurer4000.Core.ViewModels
             IsBusy = true;
             _currentSolution = _measureService.Measure(solution);
             Stats = MeasureUtils.CalculateStats(_currentSolution);
+            CreateAndroidPlot(Stats);
+            CreateIOSPlot(Stats);
             IsBusy = false;
         }
 
         private void ShowError(Exception e)
         {
             _fileDialogService.OpenError(e, string.Empty);
+        }
+
+        private void CreateAndroidPlot(CodeStats codeStats)
+        {
+            AndroidPlotModel = new PlotModel
+            {
+                Title = "Android"
+            };
+
+            var pieSlice = new PieSeries
+            {
+                StrokeThickness = 2.0,
+                InsideLabelPosition = 0.8,
+                AngleSpan = 360,
+                StartAngle = 0
+            };
+
+            pieSlice.Slices.Add(new PieSlice("Share", codeStats.ShareCodeInAndroid) { IsExploded = true });
+            pieSlice.Slices.Add(new PieSlice("Specific", codeStats.AndroidSpecificCode) { IsExploded = true });
+
+            AndroidPlotModel.Series.Add(pieSlice);
+        }
+
+        private void CreateIOSPlot(CodeStats codeStats)
+        {
+            IosPlotModel = new PlotModel
+            {
+                Title = "iOS"
+            };
+
+            var pieSlice = new PieSeries
+            {
+                StrokeThickness = 2.0,
+                InsideLabelPosition = 0.8,
+                AngleSpan = 360,
+                StartAngle = 0
+            };
+
+            pieSlice.Slices.Add(new PieSlice("Share", codeStats.ShareCodeIniOS) { IsExploded = true });
+            pieSlice.Slices.Add(new PieSlice("Specific", codeStats.iOSSpecificCode) { IsExploded = true });
+
+            IosPlotModel.Series.Add(pieSlice);
         }
     }
 }
