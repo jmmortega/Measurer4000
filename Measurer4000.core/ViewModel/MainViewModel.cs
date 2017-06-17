@@ -130,8 +130,8 @@ namespace Measurer4000.Core.ViewModels
                 StartAngle = 0
             };
 
-            pieSlice.Slices.Add(new PieSlice("Share", codeStats.ShareCodeInAndroid) { IsExploded = true });
-            pieSlice.Slices.Add(new PieSlice("Specific", codeStats.AndroidSpecificCode) { IsExploded = true });
+            pieSlice.Slices.Add(new PieSlice("Share", codeStats.ShareCodeInAndroid) { IsExploded = true, Fill = OxyColors.Green });
+            pieSlice.Slices.Add(new PieSlice("Specific", codeStats.AndroidSpecificCode) { IsExploded = true, Fill = OxyColors.Red });
 
             AndroidPlotModel.Series.Add(pieSlice);
         }
@@ -151,8 +151,8 @@ namespace Measurer4000.Core.ViewModels
                 StartAngle = 0
             };
 
-            pieSlice.Slices.Add(new PieSlice("Share", codeStats.ShareCodeIniOS) { IsExploded = true });
-            pieSlice.Slices.Add(new PieSlice("Specific", codeStats.iOSSpecificCode) { IsExploded = true });
+            pieSlice.Slices.Add(new PieSlice("Share", codeStats.ShareCodeIniOS) { IsExploded = true, Fill = OxyColors.Green });
+            pieSlice.Slices.Add(new PieSlice("Specific", codeStats.iOSSpecificCode) { IsExploded = true, Fill = OxyColors.Red });
 
             IosPlotModel.Series.Add(pieSlice);
         }
