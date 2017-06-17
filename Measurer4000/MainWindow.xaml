@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:Measurer4000" 
         xmlns:oxyplot="http://oxyplot.org/wpf" 
         mc:Ignorable="d"
-        Title="Measurer4000" Height="600" Width="720">
+        Title="Measurer4000" 
+        Height="600" Width="720">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
