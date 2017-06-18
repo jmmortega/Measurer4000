@@ -37,6 +37,7 @@
   <ItemGroup>
     <Compile Include="Models\CodeStats.cs" />
     <Compile Include="Models\EnumPlatform.cs" />
+    <Compile Include="Models\EnumTypeDialog.cs" />
     <Compile Include="Models\EnumTypeFile.cs" />
     <Compile Include="Models\ProgrammingFile.cs" />
     <Compile Include="Models\Project.cs" />

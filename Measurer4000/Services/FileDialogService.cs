@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Measurer4000.Core.Models;
 
 namespace Measurer4000.Services
 {
@@ -24,14 +25,27 @@ namespace Measurer4000.Services
             }
             catch(Exception e)
             {
-                OpenError(e, string.Empty);
+                CreateDialog(EnumTypeDialog.Error, e.Message);
             }
             
         }
 
-        public void OpenError(Exception exceptionError, string messageError)
+        public void CreateDialog(EnumTypeDialog type, string text, string title = "")
         {
-            MessageBox.Show($"Error: {exceptionError.Message} , {messageError}");
+            MessageBoxImage messageImage;
+            switch (type)
+            {
+                case EnumTypeDialog.Information:
+                    messageImage = MessageBoxImage.Information;
+                    break;
+                case EnumTypeDialog.Warning:
+                    messageImage = MessageBoxImage.Warning;
+                    break;
+                default:
+                    messageImage = MessageBoxImage.Error;
+                    break;
+            }
+            MessageBox.Show(text, title, MessageBoxButton.OK, messageImage);
         }
     }
 }
