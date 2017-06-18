@@ -41,6 +41,7 @@ namespace Measurer4000.mac.Services
 				InformativeText = text,
 				MessageText = title
 			}
+			alert.RunModal();
 		}
     }
 }
