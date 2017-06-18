@@ -11,5 +11,10 @@ namespace Measurer4000.Core.Utils
         {
             return string.Format(BASEURL, stats.ShareCodeIniOS, stats.ShareCodeInAndroid, stats.iOSSpecificCode, stats.AndroidSpecificCode, stats.TotalLinesOfCode);            
         }
+        
+        public static string CreateExceptionUrl()
+        {
+            return @"https://twitter.com/MarcosCobena_/status/875694226612391936";
+        }
     }
 }
