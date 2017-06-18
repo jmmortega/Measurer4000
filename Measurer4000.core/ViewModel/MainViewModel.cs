@@ -75,7 +75,7 @@ namespace Measurer4000.Core.ViewModels
                 {
                     _fileDialogService.OpenFileDialog(
                         (solutionPath) => OpenSolutionPath(solutionPath),
-                        (error) => ShowError(error));                        
+                        (error) => _fileDialogService.CreateDialog(EnumTypeDialog.Error, error.Message));                        
                 });
             }
         }
@@ -86,8 +86,7 @@ namespace Measurer4000.Core.ViewModels
             {
                 return new Command(() =>
                 {
-                    var url = ShareCodeReportUtils.CreateShareUrl(_stats);
-                    ServiceLocator.Get<IWebBrowserTaskService>().Navigate(url);
+                    ServiceLocator.Get<IWebBrowserTaskService>().Navigate(ShareCodeReportUtils.CreateShareUrl(_stats));
                 });
             }
         }
@@ -96,15 +95,15 @@ namespace Measurer4000.Core.ViewModels
         {
             if(solutionPath.ToLower().Contains("measurer")) 
             {
-                ServiceLocator.Get<IWebBrowserTaskService>().Navigate(ShareCodeReportUtils.CreateExceptionUrl())
+                _fileDialogService.CreateDialog(EnumTypeDialog.Warning
+                    , "The measuring measurer is trying to measure a measuring measurer\nWill this measuring measurer be enough measurer to even measure a measuring measurer?"
+                    , "Measurer Measurement Exception");
+                ServiceLocator.Get<IWebBrowserTaskService>().Navigate(ShareCodeReportUtils.CreateExceptionUrl());
             }
-            else
-            {
-                IsBusy = true;
-                _currentSolution = _measureService.GetProjects(solutionPath);
-                IsBusy = false; // just in case we later split this in 2 buttons
-                MeasureSolution(_currentSolution);
-            }
+            IsBusy = true;
+            _currentSolution = _measureService.GetProjects(solutionPath);
+            IsBusy = false; // just in case we later split this in 2 buttons
+            MeasureSolution(_currentSolution);
         }
 
         private void MeasureSolution(Solution solution)
@@ -115,11 +114,9 @@ namespace Measurer4000.Core.ViewModels
             CreateAndroidPlot(Stats);
             CreateIOSPlot(Stats);
             IsBusy = false;
-        }
-
-        private void ShowError(Exception e)
-        {
-            _fileDialogService.OpenError(e, string.Empty);
+            _fileDialogService.CreateDialog(EnumTypeDialog.Information
+                    , "Consider sharing your applications stats clicking on bottom left link and filling the form\nData collected this way will be public accessible by the community"
+                    , "Sharing");
         }
 
         private void CreateAndroidPlot(CodeStats codeStats)
