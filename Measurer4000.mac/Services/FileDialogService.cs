@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using Measurer4000.Core.Services.Interfaces;
@@ -35,12 +35,12 @@ namespace Measurer4000.mac.Services
         }
 		public void CreateDialog(EnumTypeDialog type, string text, string title = "")
 		{
-			var alert = new NSAlert()
-			{
-				AlertStyle = (NSAlertStyle)type,
-				InformativeText = text,
-				MessageText = title
-			}
+            var alert = new NSAlert()
+            {
+                AlertStyle = (NSAlertStyle)type,
+                InformativeText = text,
+                MessageText = title
+            };
 			alert.RunModal();
 		}
     }
