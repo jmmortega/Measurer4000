@@ -201,8 +201,8 @@ namespace Measurer4000.Core.Utils
                 TotalLinesIniOS = _currentSolution.Projects.Where(x => x.Platform == EnumPlatform.iOS).SelectMany(x => x.Files).Sum(x => x.LOC)
             };
 
-            stats.iOSSpecificCode = 100 - stats.ShareCodeIniOS;
-            stats.AndroidSpecificCode = 100 - stats.ShareCodeInAndroid;
+            stats.iOSSpecificCode = Math.Round(100 - stats.ShareCodeIniOS, 2);
+            stats.AndroidSpecificCode = Math.Round(100 - stats.ShareCodeInAndroid, 2);
             return stats;
         }
     }
