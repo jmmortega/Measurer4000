@@ -12,9 +12,13 @@ namespace Measurer4000.Core.Models
 
         public double ShareCodeIniOS { get; set; }
 
+		public double ShareCodeInUWP { get; set; }
+
         public double AndroidSpecificCode { get; set; }
 
         public double iOSSpecificCode { get; set; }
+
+		public double UWPSpecificCode { get; set; }
 
         public long AmountOfFiles { get; set; }
 
@@ -30,10 +34,14 @@ namespace Measurer4000.Core.Models
 
         public long iOSFiles { get; set; }
 
+		public long UWPFiles { get; set; }
+
         public long TotalLinesCore { get; set; }
 
         public long TotalLinesInAndroid { get; set; }
 
         public long TotalLinesIniOS { get; set; }
+
+		public long TotalLinesInUWP { get; set; }
     }
 }

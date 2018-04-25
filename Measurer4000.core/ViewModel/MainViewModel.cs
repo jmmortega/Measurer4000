@@ -19,6 +19,10 @@ namespace Measurer4000.Core.ViewModels
         {
             _measureService = ServiceLocator.Get<IMeasurerService>();
             _fileDialogService = ServiceLocator.Get<IDialogService>();
+
+			AndroidPlotModel = new PlotModel() { Title = "Android" };
+			IosPlotModel = new PlotModel() { Title = "iOS" };
+			UwpPlotModel = new PlotModel() { Title = "UWP" };
         }
 
         private bool _isBusy;
@@ -45,15 +49,15 @@ namespace Measurer4000.Core.ViewModels
 
         private PlotModel _androidPlotModel;
 
-        public PlotModel AndroidPlotModel
-        {
-            get { return _androidPlotModel; }
-            set
-            {
-                _androidPlotModel = value;
-                RaiseProperty();
-            }
-        }
+		public PlotModel AndroidPlotModel
+		{
+			get { return _androidPlotModel; }
+			set
+			{
+				_androidPlotModel = value;
+				RaiseProperty();
+			}
+		}
 
         private PlotModel _iosPlotModel;
 
@@ -63,6 +67,18 @@ namespace Measurer4000.Core.ViewModels
             set
             {
                 _iosPlotModel = value;
+                RaiseProperty();
+            }
+        }
+
+		private PlotModel _uwpPlotModel;
+
+        public PlotModel UwpPlotModel
+        {
+			get { return _uwpPlotModel; }
+            set
+            {
+				_uwpPlotModel = value;
                 RaiseProperty();
             }
         }
@@ -111,21 +127,20 @@ namespace Measurer4000.Core.ViewModels
             IsBusy = true;
             _currentSolution = _measureService.Measure(solution);
             Stats = MeasureUtils.CalculateStats(_currentSolution);
-            CreateAndroidPlot(Stats);
-            CreateIOSPlot(Stats);
+
+			CreatePlotPerPlatform(Stats, AndroidPlotModel);
+			CreatePlotPerPlatform(Stats, IosPlotModel);
+			CreatePlotPerPlatform(Stats, UwpPlotModel);
+
             IsBusy = false;
             _fileDialogService.CreateDialog(EnumTypeDialog.Information
                     , "Consider sharing your applications stats clicking on bottom left link and filling the form\nData collected this way will be public accessible by the community"
                     , "Sharing");
         }
 
-        private void CreateAndroidPlot(CodeStats codeStats)
+		//TODO: I need to reword this
+		private void CreatePlotPerPlatform(CodeStats codeStats, PlotModel plotmodel)
         {
-            AndroidPlotModel = new PlotModel
-            {
-                Title = "Android"
-            };
-
             var pieSlice = new PieSeries
             {
                 StrokeThickness = 2.0,
@@ -137,28 +152,7 @@ namespace Measurer4000.Core.ViewModels
             pieSlice.Slices.Add(new PieSlice("Share", codeStats.ShareCodeInAndroid) { IsExploded = true, Fill = OxyColors.Green });
             pieSlice.Slices.Add(new PieSlice("Specific", codeStats.AndroidSpecificCode) { IsExploded = true, Fill = OxyColors.Red });
 
-            AndroidPlotModel.Series.Add(pieSlice);
-        }
-
-        private void CreateIOSPlot(CodeStats codeStats)
-        {
-            IosPlotModel = new PlotModel
-            {
-                Title = "iOS"
-            };
-
-            var pieSlice = new PieSeries
-            {
-                StrokeThickness = 2.0,
-                InsideLabelPosition = 0.8,
-                AngleSpan = 360,
-                StartAngle = 0
-            };
-
-            pieSlice.Slices.Add(new PieSlice("Share", codeStats.ShareCodeIniOS) { IsExploded = true, Fill = OxyColors.Green });
-            pieSlice.Slices.Add(new PieSlice("Specific", codeStats.iOSSpecificCode) { IsExploded = true, Fill = OxyColors.Red });
-
-            IosPlotModel.Series.Add(pieSlice);
+			plotmodel.Series.Add(pieSlice);
         }
     }
 }

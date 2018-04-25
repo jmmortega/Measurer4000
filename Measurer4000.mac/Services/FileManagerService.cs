@@ -11,7 +11,8 @@ namespace Measurer4000.mac.Services
     {
         public Stream OpenRead(string filePath)
         {
-            return NSFileHandle.OpenRead(filePath.Replace("\\", "/")).ReadDataToEndOfFile().AsStream();
+			var path = filePath.Replace("\\", "/");
+            return NSFileHandle.OpenRead(path).ReadDataToEndOfFile().AsStream();
         }
     }
 }

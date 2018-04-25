@@ -1,15 +1,13 @@
-﻿using Measurer4000.Core.Models;
-using System;
-using System.Collections.Generic;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Measurer4000.Core.Models;
 using Measurer4000.Core.Services.Interfaces;
 
 namespace Measurer4000.Core.Utils
 {
-    public static class MeasureUtils
+	public static class MeasureUtils
     {
         public static IFileManagerService File;
         public static long CalculateLOC(ProgrammingFile programmingFile)
@@ -178,32 +176,49 @@ namespace Measurer4000.Core.Utils
 
         public static CodeStats CalculateStats(Solution _currentSolution)
         {
-            var stats = new CodeStats()
+			var files = _currentSolution.Projects.Where(x => x.Platform == EnumPlatform.Android).SelectMany(x => x.Files);
+
+			foreach (var item in files)
+			{
+				Debug.WriteLine($"file: {item.Name}");
+			}
+
+			var stats = new CodeStats()
             {
-                ShareCodeInAndroid = Math.Round(((double)_currentSolution.Projects.Where(x => x.Platform == EnumPlatform.Core).SelectMany(x => x.Files).Where(x => x.IsUserInterface == false).Sum(x => x.LOC)
-                    / (_currentSolution.Projects.Where(x => x.Platform == EnumPlatform.Android).SelectMany(x => x.Files).Where(x => x.IsUserInterface == false).Sum(x => x.LOC)
-                    + _currentSolution.Projects.Where(x => x.Platform == EnumPlatform.Core).SelectMany(x => x.Files).Where(x => x.IsUserInterface == false).Sum(x => x.LOC))
-                    ) * 100, 2),
-                ShareCodeIniOS = Math.Round(((double)_currentSolution.Projects.Where(x => x.Platform == EnumPlatform.Core).SelectMany(x => x.Files).Where(x => x.IsUserInterface == false).Sum(x => x.LOC)
-                    / (_currentSolution.Projects.Where(x => x.Platform == EnumPlatform.iOS).SelectMany(x => x.Files).Where(x => x.IsUserInterface == false).Sum(x => x.LOC)
-                    + _currentSolution.Projects.Where(x => x.Platform == EnumPlatform.Core).SelectMany(x => x.Files).Where(x => x.IsUserInterface == false).Sum(x => x.LOC))
-                    ) * 100, 2),
+				ShareCodeInAndroid = CalculateShareCodePerPlaform(_currentSolution, EnumPlatform.Android),
+                
+				AndroidFiles = files.Count(),
+				TotalLinesInAndroid = _currentSolution.Projects.Where(x => x.Platform == EnumPlatform.Android).SelectMany(x => x.Files).Sum(x => x.LOC),
+
+				ShareCodeIniOS = CalculateShareCodePerPlaform(_currentSolution, EnumPlatform.iOS),
+				iOSFiles = _currentSolution.Projects.Where(x => x.Platform == EnumPlatform.iOS).SelectMany(x => x.Files).Count(),
+				TotalLinesIniOS = _currentSolution.Projects.Where(x => x.Platform == EnumPlatform.iOS).SelectMany(x => x.Files).Sum(x => x.LOC),
+
+				ShareCodeInUWP = CalculateShareCodePerPlaform(_currentSolution, EnumPlatform.UWP),
+				UWPFiles = _currentSolution.Projects.Where(x => x.Platform == EnumPlatform.UWP).SelectMany(x => x.Files).Count(),
+				TotalLinesInUWP = _currentSolution.Projects.Where(x => x.Platform == EnumPlatform.UWP).SelectMany(x => x.Files).Sum(x => x.LOC),
 
                 AmountOfFiles = _currentSolution.Projects.SelectMany(p => p.Files).Count(),
                 CodeFiles = _currentSolution.Projects.SelectMany(x => x.Files).Count(x => x.IsUserInterface == false),
                 UIFiles = _currentSolution.Projects.SelectMany(x => x.Files).Count(x => x.IsUserInterface == true),
                 TotalLinesOfCode = _currentSolution.Projects.SelectMany(x => x.Files).Where(x => x.IsUserInterface == false).Sum(x => x.LOC),
                 TotalLinesOfUI = _currentSolution.Projects.SelectMany(x => x.Files).Where(x => x.IsUserInterface == true).Sum(x => x.LOC),
-                AndroidFiles = _currentSolution.Projects.Where(x => x.Platform == EnumPlatform.Android).SelectMany(x => x.Files).Count(),
-                iOSFiles = _currentSolution.Projects.Where(x => x.Platform == EnumPlatform.iOS).SelectMany(x => x.Files).Count(),
-                TotalLinesCore = _currentSolution.Projects.Where(x => x.Platform == EnumPlatform.Core).SelectMany(x => x.Files).Sum(x => x.LOC),
-                TotalLinesInAndroid = _currentSolution.Projects.Where(x => x.Platform == EnumPlatform.Android).SelectMany(x => x.Files).Sum(x => x.LOC),
-                TotalLinesIniOS = _currentSolution.Projects.Where(x => x.Platform == EnumPlatform.iOS).SelectMany(x => x.Files).Sum(x => x.LOC)
+                TotalLinesCore = _currentSolution.Projects.Where(x => x.Platform == EnumPlatform.Core).SelectMany(x => x.Files).Sum(x => x.LOC),            
             };
 
             stats.iOSSpecificCode = Math.Round(100 - stats.ShareCodeIniOS, 2);
             stats.AndroidSpecificCode = Math.Round(100 - stats.ShareCodeInAndroid, 2);
+			stats.UWPSpecificCode = Math.Round(100 - stats.ShareCodeInUWP, 2);
+
             return stats;
         }
+
+		private static double CalculateShareCodePerPlaform(Solution _currentSolution, EnumPlatform _selectedPlatform)
+		{
+			var totalCoreLOC = _currentSolution.Projects.Where(x => x.Platform == EnumPlatform.Core).SelectMany(x => x.Files).Where(x => x.IsUserInterface == false).Sum(x => x.LOC);
+			var platformSpecificLOC = _currentSolution.Projects.Where(x => x.Platform == _selectedPlatform).SelectMany(x => x.Files).Where(x => x.IsUserInterface == false).Sum(x => x.LOC);
+
+			return Math.Round(((double) totalCoreLOC / (platformSpecificLOC + totalCoreLOC)) * 100, 2);
+		}
     }
 }
