@@ -19,10 +19,6 @@ namespace Measurer4000.Core.ViewModels
         {
             _measureService = ServiceLocator.Get<IMeasurerService>();
             _fileDialogService = ServiceLocator.Get<IDialogService>();
-
-			AndroidPlotModel = new PlotModel() { Title = "Android" };
-			IosPlotModel = new PlotModel() { Title = "iOS" };
-			UwpPlotModel = new PlotModel() { Title = "UWP" };
         }
 
         private bool _isBusy;
@@ -128,9 +124,9 @@ namespace Measurer4000.Core.ViewModels
             _currentSolution = _measureService.Measure(solution);
             Stats = MeasureUtils.CalculateStats(_currentSolution);
 
-			CreatePlotPerPlatform(Stats, AndroidPlotModel);
-			CreatePlotPerPlatform(Stats, IosPlotModel);
-			CreatePlotPerPlatform(Stats, UwpPlotModel);
+            CreateAndroidPlot(Stats);
+            CreateIOSPlot(Stats);
+            CreateUWPPlot(Stats);
 
             IsBusy = false;
             _fileDialogService.CreateDialog(EnumTypeDialog.Information
@@ -138,9 +134,34 @@ namespace Measurer4000.Core.ViewModels
                     , "Sharing");
         }
 
-		//TODO: I need to reword this
-		private void CreatePlotPerPlatform(CodeStats codeStats, PlotModel plotmodel)
+        private void CreateIOSPlot(CodeStats codeStats)
         {
+            IosPlotModel = new PlotModel
+            {
+                Title = "iOS"
+            };
+
+            var pieSlice = new PieSeries
+            {
+                StrokeThickness = 2.0,
+                InsideLabelPosition = 0.8,
+                AngleSpan = 360,
+                StartAngle = 0
+            };
+
+            pieSlice.Slices.Add(new PieSlice("Share", codeStats.ShareCodeIniOS) { IsExploded = true, Fill = OxyColors.Green });
+            pieSlice.Slices.Add(new PieSlice("Specific", codeStats.iOSSpecificCode) { IsExploded = true, Fill = OxyColors.Red });
+
+            IosPlotModel.Series.Add(pieSlice);
+        }
+
+        private void CreateAndroidPlot(CodeStats codeStats)
+        {
+            AndroidPlotModel = new PlotModel
+            {
+                Title = "Android"
+            };
+
             var pieSlice = new PieSeries
             {
                 StrokeThickness = 2.0,
@@ -152,7 +173,28 @@ namespace Measurer4000.Core.ViewModels
             pieSlice.Slices.Add(new PieSlice("Share", codeStats.ShareCodeInAndroid) { IsExploded = true, Fill = OxyColors.Green });
             pieSlice.Slices.Add(new PieSlice("Specific", codeStats.AndroidSpecificCode) { IsExploded = true, Fill = OxyColors.Red });
 
-			plotmodel.Series.Add(pieSlice);
+            AndroidPlotModel.Series.Add(pieSlice);
+        }
+
+        private void CreateUWPPlot(CodeStats codeStats)
+        {
+            UwpPlotModel = new PlotModel
+            {
+                Title = "UWP"
+            };
+
+            var pieSlice = new PieSeries
+            {
+                StrokeThickness = 2.0,
+                InsideLabelPosition = 0.8,
+                AngleSpan = 360,
+                StartAngle = 0
+            };
+
+            pieSlice.Slices.Add(new PieSlice("Share", codeStats.ShareCodeInUWP) { IsExploded = true, Fill = OxyColors.Green });
+            pieSlice.Slices.Add(new PieSlice("Specific", codeStats.UWPSpecificCode) { IsExploded = true, Fill = OxyColors.Red });
+
+            UwpPlotModel.Series.Add(pieSlice);
         }
     }
 }
