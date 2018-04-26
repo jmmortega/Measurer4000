@@ -38,6 +38,12 @@ namespace Measurer4000.mac
 
 		[Outlet]
 		AppKit.NSTextField iOSLOC { get; set; }
+              
+		[Outlet]
+        AppKit.NSTextField UWPFiles { get; set; }
+
+        [Outlet]
+        AppKit.NSTextField UWPLOC { get; set; }            
 
 		[Outlet]
 		AppKit.NSProgressIndicator ProgressBar { get; set; }
@@ -49,13 +55,19 @@ namespace Measurer4000.mac
 		AppKit.NSTextField ShareCodeIniOS { get; set; }
 
 		[Outlet]
+		AppKit.NSTextField ShareCodeInUWP { get; set; }
+
+		[Outlet]
 		AppKit.NSTextField ShareLink { get; set; }
 
 		[Outlet]
-		AppKit.NSTextField ShareUIInAndroid { get; set; }
+		AppKit.NSTextField AndroidSpecificCode { get; set; }
 
 		[Outlet]
-		AppKit.NSTextField ShareUIIniOS { get; set; }
+		AppKit.NSTextField iOSSpecificCode { get; set; }
+
+		[Outlet]
+        AppKit.NSTextField UWPSpecificCode { get; set; }
 
 		[Outlet]
 		AppKit.NSTextField TotalLOC { get; set; }
@@ -97,6 +109,11 @@ namespace Measurer4000.mac
 				ButtonOpenFile = null;
 			}
 
+			if (ButtonShareLink != null) {
+				ButtonShareLink.Dispose ();
+				ButtonShareLink = null;
+			}
+
 			if (CodeFiles != null) {
 				CodeFiles.Dispose ();
 				CodeFiles = null;
@@ -117,6 +134,19 @@ namespace Measurer4000.mac
 				iOSLOC = null;
 			}
 
+                     
+			if (UWPFiles != null)
+            {
+				UWPFiles.Dispose();
+				UWPFiles = null;
+            }
+
+			if (UWPLOC != null)
+            {
+				UWPLOC.Dispose();
+				UWPLOC = null;
+            }
+
 			if (ProgressBar != null) {
 				ProgressBar.Dispose ();
 				ProgressBar = null;
@@ -131,21 +161,33 @@ namespace Measurer4000.mac
 				ShareCodeIniOS.Dispose ();
 				ShareCodeIniOS = null;
 			}
+                     
+			if (ShareCodeInUWP != null)
+            {
+				ShareCodeInUWP.Dispose();
+				ShareCodeInUWP = null;
+            }
 
 			if (ShareLink != null) {
 				ShareLink.Dispose ();
 				ShareLink = null;
 			}
 
-			if (ShareUIInAndroid != null) {
-				ShareUIInAndroid.Dispose ();
-				ShareUIInAndroid = null;
+			if (AndroidSpecificCode != null) {
+				AndroidSpecificCode.Dispose ();
+				AndroidSpecificCode = null;
 			}
 
-			if (ShareUIIniOS != null) {
-				ShareUIIniOS.Dispose ();
-				ShareUIIniOS = null;
+			if (iOSSpecificCode != null) {
+				iOSSpecificCode.Dispose ();
+				iOSSpecificCode = null;
 			}
+
+			if (UWPSpecificCode != null)
+            {
+				UWPSpecificCode.Dispose();
+				UWPSpecificCode = null;
+            }
 
 			if (TotalLOC != null) {
 				TotalLOC.Dispose ();
@@ -160,11 +202,6 @@ namespace Measurer4000.mac
 			if (UIFiles != null) {
 				UIFiles.Dispose ();
 				UIFiles = null;
-			}
-
-			if (ButtonShareLink != null) {
-				ButtonShareLink.Dispose ();
-				ButtonShareLink = null;
 			}
 		}
 	}

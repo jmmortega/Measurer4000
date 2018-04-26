@@ -20,7 +20,7 @@ namespace Measurer4000.Core.Utils
                 while(!solutionReader.EndOfStream)
                 {
                     string line = solutionReader.ReadLine();
-                    if (line.StartsWith("Project")) projects.Add(line);
+					if (line.StartsWith("Project") && line.Contains(".csproj")) projects.Add(line);
                     System.Diagnostics.Debug.WriteLine(line+(line.StartsWith("Project")?" is project":" isnt project"));
                 }                
             }
@@ -102,7 +102,7 @@ namespace Measurer4000.Core.Utils
 
         private static EnumPlatform ThisLineDeterminePlatform(string line)
         {
-            if(line.ToLower().Contains("android"))
+			if(line.ToLower().Contains("androidmanifest.xml"))
             {
                 return EnumPlatform.Android;
             }
@@ -110,6 +110,10 @@ namespace Measurer4000.Core.Utils
             {
                 return EnumPlatform.iOS;
             }
+			else if (line.ToLower().Contains("<targetplatformidentifier>uap</targetplatformidentifier>"))
+            {
+				return EnumPlatform.UWP;
+            }         
             //I suppose only have PCL libraries in core project. (Obviously?)
             else if(line.ToLower().Contains("targetframeworkprofile"))
             {

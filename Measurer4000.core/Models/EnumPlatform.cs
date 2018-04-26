@@ -5,6 +5,7 @@
         Core,
         Android,
         iOS,
+        UWP,
         None
     }
 }
