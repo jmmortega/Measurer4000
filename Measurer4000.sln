@@ -1,13 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.12
+VisualStudioVersion = 15.0.27130.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Measurer4000.WPF", "Measurer4000\Measurer4000.WPF.csproj", "{EE311920-EEA9-4167-BD99-DA3E47E610F2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Measurer4000.mac", "Measurer4000.mac\Measurer4000.mac.csproj", "{9E52B23E-9D45-46CC-9968-CB873AD4672D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Measurer4000.Core", "Measurer4000.Core\Measurer4000.Core.csproj", "{67F9D3A8-F71E-4428-913F-C37AE82CDB24}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{E9CB98E2-719E-4259-A440-347F97BADE49}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platforms", "Platforms", "{8B13FAFF-A7A4-4734-BACB-44DB65B0CC22}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Measurer4000.Command", "Measurer4000.Console\Measurer4000.Command.csproj", "{558B7409-2F08-400D-8474-56F5C7CC0AB9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,8 +33,21 @@ Global
 		{67F9D3A8-F71E-4428-913F-C37AE82CDB24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67F9D3A8-F71E-4428-913F-C37AE82CDB24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67F9D3A8-F71E-4428-913F-C37AE82CDB24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{558B7409-2F08-400D-8474-56F5C7CC0AB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{558B7409-2F08-400D-8474-56F5C7CC0AB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{558B7409-2F08-400D-8474-56F5C7CC0AB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{558B7409-2F08-400D-8474-56F5C7CC0AB9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EE311920-EEA9-4167-BD99-DA3E47E610F2} = {8B13FAFF-A7A4-4734-BACB-44DB65B0CC22}
+		{9E52B23E-9D45-46CC-9968-CB873AD4672D} = {8B13FAFF-A7A4-4734-BACB-44DB65B0CC22}
+		{67F9D3A8-F71E-4428-913F-C37AE82CDB24} = {E9CB98E2-719E-4259-A440-347F97BADE49}
+		{558B7409-2F08-400D-8474-56F5C7CC0AB9} = {8B13FAFF-A7A4-4734-BACB-44DB65B0CC22}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {17C2BA11-EEA3-4BCC-A569-899C5E864F99}
 	EndGlobalSection
 EndGlobal

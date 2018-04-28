@@ -34,6 +34,8 @@ namespace Measurer4000.Core.Services
                     programmingFile.LOC = MeasureUtils.CalculateLOC(programmingFile);
                 });
             });
+
+            solution.Stats = MeasureUtils.CalculateStats(solution);
             return solution;
         }
     }
