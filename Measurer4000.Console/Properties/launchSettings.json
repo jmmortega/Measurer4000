@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Measurer4000.Console": {
+      "commandName": "Project",
+      "commandLineArgs": "-complete -json D:\\Projects\\DevsDNA\\Avianca\\Antares.App\\Antares.App.sln"
+    }
+  }
+}
