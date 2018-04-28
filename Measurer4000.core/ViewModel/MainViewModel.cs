@@ -33,15 +33,9 @@ namespace Measurer4000.Core.ViewModels
             }
         }
 
-        private CodeStats _stats = new CodeStats();
+        public CodeStats Stats => _currentSolution.Stats;
 
-        public CodeStats Stats
-        {
-            get { return _stats; }
-            set { _stats = value; RaiseProperty(); }
-        }
-
-        private Solution _currentSolution;
+        private Solution _currentSolution = new Solution();
 
         private PlotModel _androidPlotModel;
 
@@ -98,7 +92,7 @@ namespace Measurer4000.Core.ViewModels
             {
                 return new Command(() =>
                 {
-                    ServiceLocator.Get<IWebBrowserTaskService>().Navigate(ShareCodeReportUtils.CreateShareUrl(_stats));
+                    ServiceLocator.Get<IWebBrowserTaskService>().Navigate(ShareCodeReportUtils.CreateShareUrl(_currentSolution.Stats));
                 });
             }
         }
@@ -122,11 +116,11 @@ namespace Measurer4000.Core.ViewModels
         {
             IsBusy = true;
             _currentSolution = _measureService.Measure(solution);
-            Stats = MeasureUtils.CalculateStats(_currentSolution);
-
-            CreateAndroidPlot(Stats);
-            CreateIOSPlot(Stats);
-            CreateUWPPlot(Stats);
+            RaiseProperty(nameof(Stats));
+            
+            CreateAndroidPlot(_currentSolution.Stats);
+            CreateIOSPlot(_currentSolution.Stats);
+            CreateUWPPlot(_currentSolution.Stats);
 
             IsBusy = false;
             _fileDialogService.CreateDialog(EnumTypeDialog.Information
