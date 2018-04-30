@@ -6,13 +6,43 @@
 
         public double ShareCodeIniOS { get; set; }
 
-		public double ShareCodeInUWP { get; set; }
+        private double shareCodeInUWP;
+
+		public double ShareCodeInUWP 
+        { 
+            get
+            {
+                if(double.IsNaN(shareCodeInUWP))
+                {
+                    return 0;
+                }
+                return shareCodeInUWP;
+            }
+            set => shareCodeInUWP = value;
+        }
 
         public double AndroidSpecificCode { get; set; }
 
         public double iOSSpecificCode { get; set; }
 
-		public double UWPSpecificCode { get; set; }
+        private double uwpSpecificCode;
+
+
+		public double UWPSpecificCode 
+        { 
+            get
+            {
+                if(double.IsNaN(uwpSpecificCode))
+                {
+                    return 0;
+                }
+                return uwpSpecificCode;
+            }
+            set
+            {
+                uwpSpecificCode = value;
+            }
+        }
 
         public long AmountOfFiles { get; set; }
 
