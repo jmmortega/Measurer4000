@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Globalization;
 using AppKit;
+using CoreGraphics;
 using Foundation;
 using Measurer4000.Core.ViewModels;
+using OxyPlot.Xamarin.Mac;
 
 namespace Measurer4000.mac
 {
 	public partial class MainWindowController : NSWindowController
     {
         private MainViewModel _dataContext;
+
+        private PlotView iosPlot;
+        private PlotView androidPlot;
+        private PlotView uwpPlot;
 
         
         public MainWindowController(IntPtr handle) : base(handle)
@@ -24,7 +30,24 @@ namespace Measurer4000.mac
         {
             _dataContext = new MainViewModel();
             _dataContext.PropertyChanged -= DataContextPropertyChanged;
-            _dataContext.PropertyChanged += DataContextPropertyChanged;            
+            _dataContext.PropertyChanged += DataContextPropertyChanged;
+
+
+        }
+
+        private void InitPlotView()
+        {
+            iosPlot = new PlotView(new CGRect(0,0, iOSPlotView.Frame.Width, iOSPlotView.Frame.Height));
+            iOSPlotView.AddSubview(iosPlot);
+
+            androidPlot = new PlotView(new CGRect(0, 0, AndroidPlotView.Frame.Width, AndroidPlotView.Frame.Height));
+            AndroidPlotView.AddSubview(androidPlot);
+
+
+            uwpPlot = new PlotView(new CGRect(0, 0, UWPPlotView.Frame.Width, UWPPlotView.Frame.Height));
+            UWPPlotView.AddSubview(uwpPlot);
+
+
         }
 
         private void DataContextPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -56,6 +79,8 @@ namespace Measurer4000.mac
         {
             ButtonShareLink.Enabled = true;
             base.WindowDidLoad();
+
+            InitPlotView();
         }
         
         public new MainWindow Window
@@ -97,6 +122,10 @@ namespace Measurer4000.mac
 			UWPLOC.StringValue = _dataContext.Stats.TotalLinesInUWP.ToString();
 			ShareCodeInUWP.StringValue = _dataContext.Stats.ShareCodeInUWP.ToString("F2", CultureInfo.InvariantCulture);
 			UWPSpecificCode.StringValue = _dataContext.Stats.UWPSpecificCode.ToString("F2", CultureInfo.InvariantCulture);
+
+            iosPlot.Model = _dataContext.IosPlotModel;
+            androidPlot.Model = _dataContext.AndroidPlotModel;
+            uwpPlot.Model = _dataContext.UwpPlotModel;
         }
     }
 }
