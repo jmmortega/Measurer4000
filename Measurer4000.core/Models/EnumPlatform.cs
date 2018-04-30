@@ -2,7 +2,8 @@
 {
     public enum EnumPlatform
     {
-        Core,
+        PCL,
+        NetStandard,
         Android,
         iOS,
         UWP,

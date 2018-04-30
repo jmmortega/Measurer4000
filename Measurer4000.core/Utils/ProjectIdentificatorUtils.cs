@@ -1,6 +1,7 @@
 ﻿using Measurer4000.Core.Models;
 using Measurer4000.Core.Services.Interfaces;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.IO;
 
@@ -13,7 +14,7 @@ namespace Measurer4000.Core.Utils
         {
             var projects = new List<string>();
             StreamReader solutionReader = null;
-
+            
             try
             {                
                 solutionReader = new StreamReader(File.OpenRead(filePathToSolution)); 
@@ -38,6 +39,8 @@ namespace Measurer4000.Core.Utils
             return projects;
         }
 
+        
+
         public static List<Project> TranslateProjectsLinesToProjects(List<string> projectLines)
         {
             var projects = new List<Project>();
@@ -57,6 +60,87 @@ namespace Measurer4000.Core.Utils
             return projects;
         }
 
+        public static Project CompleteInfoForNetStandardProject(Project project, string filePathToSolution, StreamReader projectReader)
+        {            
+            try
+            {
+                var removedPaths = NetStandardPathRemoved(projectReader);
+                var projectPathWOCSProj = project.Path.Substring(0, project.Path.LastIndexOf('/') +1);
+
+                var listingFiles = File.DirectorySearch(Path.GetDirectoryName(
+                                (Path.Combine(Path.GetDirectoryName(filePathToSolution), projectPathWOCSProj))),
+                                "*.cs|*.xaml");
+
+                RemoveFiles(listingFiles, removedPaths);
+
+                foreach(var file in listingFiles)
+                {
+                    project.Files.Add(new ProgrammingFile()
+                    {
+                        Name = file.Substring(file.LastIndexOf('/')+1, file.Length - file.LastIndexOf('/')-1),
+                        Path = file,
+                        IsUserInterface = file.IsUserInterface()
+                    });
+                }
+            }
+            catch(Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e.Message);
+            }
+            
+            return project;
+        }
+
+        private static void RemoveFiles(List<string> listingFiles, List<string> removedPaths)
+        {
+            var filesToRemove = new List<string>();
+
+            foreach (var fileRemoved in removedPaths)
+            {
+                if (fileRemoved.Contains("**"))
+                {
+                    filesToRemove.AddRange(listingFiles.Where(x => x.Contains(fileRemoved.Replace("**", ""))));
+                }
+                else
+                {
+                    filesToRemove.Add(fileRemoved);
+                }
+            }
+
+            foreach (var fileToRemove in filesToRemove)
+            {
+                var file = listingFiles.FirstOrDefault(x => x.Contains(fileToRemove));
+
+                if (file != null)
+                {
+                    listingFiles.Remove(file);
+                }
+            }
+        }
+
+        private static List<string> NetStandardPathRemoved(StreamReader projectReader)
+        {
+            List<string> removedPaths = new List<string>();
+
+            try
+            {
+                while(!projectReader.EndOfStream)
+                {
+                    string line = projectReader.ReadLine();
+                    if(line.Contains("Compile Remove"))
+                    {
+                        removedPaths.Add(line.Split('=')[1].Trim('>').Trim('/').Trim('"').Trim().Trim('"'));
+                    }
+                }
+            }
+            catch(Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e.Message);
+            }
+
+            return removedPaths;
+        }
+
         public static Project CompleteInfoForProject(Project project, string pathToSolution)
         {
             StreamReader projectReader = null;
@@ -73,6 +157,12 @@ namespace Measurer4000.Core.Utils
                         project.Platform = ThisLineDeterminePlatform(line);
                     }
 
+                    if(project.Platform == EnumPlatform.NetStandard)
+                    {
+                        //NetStandard calculates lines in another way.
+                        project = CompleteInfoForNetStandardProject(project, pathToSolution, projectReader);
+                    }
+                    
                     if (line.Contains("Compile") || line.Contains("InterfaceDefinition") || line.Contains("AndroidResource"))
                     {
                         if (ItsAValidFile(line))
@@ -117,7 +207,11 @@ namespace Measurer4000.Core.Utils
             //I suppose only have PCL libraries in core project. (Obviously?)
             else if(line.ToLower().Contains("targetframeworkprofile"))
             {
-                return EnumPlatform.Core;
+                return EnumPlatform.PCL;
+            }
+            else if(line.ToLower().Contains("netstandard"))
+            {
+                return EnumPlatform.NetStandard;
             }
             else
             {
@@ -138,10 +232,9 @@ namespace Measurer4000.Core.Utils
             {
                 Name = pathFile,
                 Path = Path.Combine(projectsPath, pathFile),
-                IsUserInterface = pathFile.Contains(".axml") || pathFile.Contains(".designer") || pathFile.Contains(".xaml") || pathFile.Contains(".xib")
+                IsUserInterface = pathFile.IsUserInterface()
             };
-        }
-
+        }        
     }
 
 }

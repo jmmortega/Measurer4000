@@ -18,8 +18,9 @@ namespace Measurer4000.Core.Services
             ProjectIdentificatorUtils.File = _fileManagerService;
             List<string> ProjectLines = ProjectIdentificatorUtils.ReadProjectsLines(filePathToSolution);
             List<Project> SolutionProjects = ProjectIdentificatorUtils.TranslateProjectsLinesToProjects(ProjectLines);
-            Parallel.ForEach(SolutionProjects, (hit) => {
-                ProjectIdentificatorUtils.CompleteInfoForProject(hit, filePathToSolution);
+            Parallel.ForEach(SolutionProjects, (hit) => 
+            {
+                ProjectIdentificatorUtils.CompleteInfoForProject(hit, filePathToSolution);                                
             });
             return new Solution() { Projects = SolutionProjects };
         }
