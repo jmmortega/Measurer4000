@@ -203,7 +203,8 @@ namespace Measurer4000.Core.Utils
                 UIFiles = _currentSolution.Projects.SelectMany(x => x.Files).Count(x => x.IsUserInterface == true),
                 TotalLinesOfCode = _currentSolution.Projects.SelectMany(x => x.Files).Where(x => x.IsUserInterface == false).Sum(x => x.LOC),
                 TotalLinesOfUI = _currentSolution.Projects.SelectMany(x => x.Files).Where(x => x.IsUserInterface == true).Sum(x => x.LOC),
-                TotalLinesCore = _currentSolution.Projects.Where(x => x.Platform == EnumPlatform.PCL).SelectMany(x => x.Files).Sum(x => x.LOC),            
+                TotalLinesCore = _currentSolution.Projects.Where(x => x.Platform == EnumPlatform.PCL || x.Platform == EnumPlatform.NetStandard)
+                                .SelectMany(x => x.Files).Sum(x => x.LOC),            
             };
 
             stats.iOSSpecificCode = Math.Round(100 - stats.ShareCodeIniOS, 2);
