@@ -3,6 +3,7 @@ using Measurer4000.Core.Services.Interfaces;
 using Foundation;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 namespace Measurer4000.mac.Services
 {
@@ -14,27 +15,44 @@ namespace Measurer4000.mac.Services
             return NSFileHandle.OpenRead(path).ReadDataToEndOfFile().AsStream();
         }
 
-        public List<string> DirectorySearch(string directory)
+        public List<string> DirectorySearch(string directory, string searchPattern = "")
         {
+            string[] searchPatterns = searchPattern.Split('|');
+
             var files = new List<string>();
-            try
+            var directories = ListingDirectories(directory);
+
+            var directoriesToRemove = directories.Where(x => x.Contains("\\bin\\") || x.Contains("\\obj\\")).ToList();
+
+            foreach (var dirRemove in directoriesToRemove)
             {
-                foreach(var subDirectory in Directory.GetDirectories(directory))
-                {
-                    foreach(var file in Directory.GetFiles(subDirectory))
-                    {
-                        files.Add(file);
-                    }
-                    files.AddRange(DirectorySearch(subDirectory));
-                }
+                directories.Remove(dirRemove);
             }
-            catch(Exception e)
+
+            foreach (var ptrn in searchPatterns)
             {
-                System.Diagnostics.Debug.WriteLine(e.Message);
+                foreach (var subDirectory in directories)
+                {
+                    files.AddRange(Directory.GetFiles(subDirectory, ptrn));
+                }
             }
 
             return files;
         }
-        
+
+        private List<string> ListingDirectories(string path)
+        {
+            var directories = new List<string>();
+
+            foreach (var subDirectory in Directory.GetDirectories(path))
+            {
+                directories.Add(subDirectory);
+                directories.AddRange(ListingDirectories(subDirectory));
+            }
+
+            return directories;
+
+        }
+
     }
 }
