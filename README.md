@@ -15,6 +15,12 @@ Visual Studio or Xamarin Studio and press F5.
 Execute the application and open solution's file, Measurer-4000 will train 
 some lions and print your application's stats.
 
+## Usage console application
+
+If you want use command application you need run with a dotnet command like that:
+
+dotnet Measurer4000.dll -json -complete SolutionPath.sln
+
 ## Share
 
 If you find this tool useful consider sharing your applications stats with

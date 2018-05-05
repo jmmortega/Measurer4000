@@ -33,27 +33,21 @@ namespace Measurer4000.Core.ViewModels
             }
         }
 
-        private CodeStats _stats = new CodeStats();
+        public CodeStats Stats => _currentSolution.Stats;
 
-        public CodeStats Stats
-        {
-            get { return _stats; }
-            set { _stats = value; RaiseProperty(); }
-        }
-
-        private Solution _currentSolution;
+        private Solution _currentSolution = new Solution();
 
         private PlotModel _androidPlotModel;
 
-        public PlotModel AndroidPlotModel
-        {
-            get { return _androidPlotModel; }
-            set
-            {
-                _androidPlotModel = value;
-                RaiseProperty();
-            }
-        }
+		public PlotModel AndroidPlotModel
+		{
+			get { return _androidPlotModel; }
+			set
+			{
+				_androidPlotModel = value;
+				RaiseProperty();
+			}
+		}
 
         private PlotModel _iosPlotModel;
 
@@ -63,6 +57,18 @@ namespace Measurer4000.Core.ViewModels
             set
             {
                 _iosPlotModel = value;
+                RaiseProperty();
+            }
+        }
+
+		private PlotModel _uwpPlotModel;
+
+        public PlotModel UwpPlotModel
+        {
+			get { return _uwpPlotModel; }
+            set
+            {
+				_uwpPlotModel = value;
                 RaiseProperty();
             }
         }
@@ -86,7 +92,7 @@ namespace Measurer4000.Core.ViewModels
             {
                 return new Command(() =>
                 {
-                    ServiceLocator.Get<IWebBrowserTaskService>().Navigate(ShareCodeReportUtils.CreateShareUrl(_stats));
+                    ServiceLocator.Get<IWebBrowserTaskService>().Navigate(ShareCodeReportUtils.CreateShareUrl(_currentSolution.Stats));
                 });
             }
         }
@@ -110,13 +116,37 @@ namespace Measurer4000.Core.ViewModels
         {
             IsBusy = true;
             _currentSolution = _measureService.Measure(solution);
-            Stats = MeasureUtils.CalculateStats(_currentSolution);
-            CreateAndroidPlot(Stats);
-            CreateIOSPlot(Stats);
+            RaiseProperty(nameof(Stats));
+            
+            CreateAndroidPlot(_currentSolution.Stats);
+            CreateIOSPlot(_currentSolution.Stats);
+            CreateUWPPlot(_currentSolution.Stats);
+
             IsBusy = false;
             _fileDialogService.CreateDialog(EnumTypeDialog.Information
                     , "Consider sharing your applications stats clicking on bottom left link and filling the form\nData collected this way will be public accessible by the community"
                     , "Sharing");
+        }
+
+        private void CreateIOSPlot(CodeStats codeStats)
+        {
+            IosPlotModel = new PlotModel
+            {
+                Title = "iOS"
+            };
+
+            var pieSlice = new PieSeries
+            {
+                StrokeThickness = 2.0,
+                InsideLabelPosition = 0.8,
+                AngleSpan = 360,
+                StartAngle = 0
+            };
+
+            pieSlice.Slices.Add(new PieSlice("Share", codeStats.ShareCodeIniOS) { IsExploded = true, Fill = OxyColors.Green });
+            pieSlice.Slices.Add(new PieSlice("Specific", codeStats.iOSSpecificCode) { IsExploded = true, Fill = OxyColors.Red });
+
+            IosPlotModel.Series.Add(pieSlice);
         }
 
         private void CreateAndroidPlot(CodeStats codeStats)
@@ -140,11 +170,11 @@ namespace Measurer4000.Core.ViewModels
             AndroidPlotModel.Series.Add(pieSlice);
         }
 
-        private void CreateIOSPlot(CodeStats codeStats)
+        private void CreateUWPPlot(CodeStats codeStats)
         {
-            IosPlotModel = new PlotModel
+            UwpPlotModel = new PlotModel
             {
-                Title = "iOS"
+                Title = "UWP"
             };
 
             var pieSlice = new PieSeries
@@ -155,10 +185,10 @@ namespace Measurer4000.Core.ViewModels
                 StartAngle = 0
             };
 
-            pieSlice.Slices.Add(new PieSlice("Share", codeStats.ShareCodeIniOS) { IsExploded = true, Fill = OxyColors.Green });
-            pieSlice.Slices.Add(new PieSlice("Specific", codeStats.iOSSpecificCode) { IsExploded = true, Fill = OxyColors.Red });
+            pieSlice.Slices.Add(new PieSlice("Share", codeStats.ShareCodeInUWP) { IsExploded = true, Fill = OxyColors.Green });
+            pieSlice.Slices.Add(new PieSlice("Specific", codeStats.UWPSpecificCode) { IsExploded = true, Fill = OxyColors.Red });
 
-            IosPlotModel.Series.Add(pieSlice);
+            UwpPlotModel.Series.Add(pieSlice);
         }
     }
 }
