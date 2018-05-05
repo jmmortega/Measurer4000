@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="Measurer4000.Addin.Views.MeasurerView"
+    xmlns:oxyplot="clr-namespace:Measurer4000.Addin.Controls;assembly=Measurer4000.Addin">
+    <ContentPage.Content>
+        <Grid>    
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />            
+                <RowDefinition Height="Auto" />         
+            </Grid.RowDefinitions>
+             <Grid
+                Grid.Row="0"
+                Margin="24">      
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>           
+                <StackLayout 
+                    Grid.Column="0">
+                    <StackLayout
+                        Orientation="Vertical" 
+                        HorizontalOptions="Center"
+                        Margin="0, 24, 0, 0">
+                        <Label 
+                            Text="iOS Specific Code"/>
+                        <Label
+                            Text="{Binding Stats.iOSSpecificCode}" 
+                            FontSize="30" />
+                    </StackLayout>
+                    <StackLayout 
+                        Orientation="Vertical"  
+                        HorizontalOptions="Center"
+                        Margin="0, 24, 0, 0">
+                        <Label 
+                            Text="Share code in iOS"/>
+                        <Label 
+                            Text="{Binding Stats.ShareCodeIniOS}" 
+                            FontSize="30" />
+                    </StackLayout>
+                </StackLayout>   
+                <StackLayout 
+                    Grid.Column="1">
+                    <StackLayout
+                            Orientation="Vertical" 
+                            HorizontalOptions="Center"
+                            Margin="0, 24, 0, 0">
+                        <Label 
+                            Text="Android Specific Code"/>
+                        <Label 
+                            Text="{Binding Stats.AndroidSpecificCode}"  
+                            FontSize="30"/>
+                    </StackLayout>
+                    <StackLayout 
+                            Orientation="Vertical"    
+                            HorizontalOptions="Center"
+                            Margin="0,32,0,0">
+                        <Label 
+                            Text="Share code in Android"/>
+                        <Label 
+                            Text="{Binding Stats.ShareCodeInAndroid}"  
+                            FontSize="30" />
+                    </StackLayout>
+                </StackLayout>              
+                <StackLayout 
+                    Grid.Column="2">
+                    <StackLayout 
+                        Orientation="Horizontal">
+                        <Label Text="Amount of files: " />
+                        <Label Text="{Binding Stats.AmountOfFiles}"/>
+                    </StackLayout>
+                    <StackLayout 
+                        Orientation="Horizontal">
+                        <Label Text="Code Files: " />
+                        <Label Text="{Binding Stats.CodeFiles}"/>
+                    </StackLayout>                   
+                    <StackLayout 
+                        Orientation="Horizontal" >
+                        <Label 
+                            Text="UI Files: " />
+                        <Label 
+                            Text="{Binding Stats.UIFiles}"/>
+                    </StackLayout>                   
+                    <StackLayout 
+                        Orientation="Horizontal" >
+                        <Label 
+                            Text="Total lines of code: " />
+                        <Label 
+                            Text="{Binding Stats.TotalLinesOfCode}"/>
+                    </StackLayout>
+                    <StackLayout 
+                        Orientation="Horizontal" >
+                        <Label 
+                            Text="Total lines of UI: " />
+                        <Label 
+                            Text="{Binding Stats.TotalLinesOfUI}"/>
+                    </StackLayout>
+                    <StackLayout 
+                        Orientation="Horizontal" >
+                        <Label 
+                            Text="Androids files: "/>
+                        <Label 
+                            Text="{Binding Stats.AndroidFiles}"/>
+                    </StackLayout>    
+                    <StackLayout 
+                        Orientation="Horizontal" >
+                        <Label 
+                            Text="iOS files: " />
+                        <Label 
+                            Text="{Binding Stats.iOSFiles}"/>
+                    </StackLayout>
+                    <StackLayout 
+                        Orientation="Horizontal" >
+                        <Label 
+                            Text="Total lines in Android: " />
+                        <Label 
+                            Text="{Binding Stats.TotalLinesInAndroid}"/>
+                    </StackLayout>
+                    <StackLayout 
+                        Orientation="Horizontal" >
+                        <Label 
+                            Text="Total lines in iOS: " />
+                        <Label 
+                            Text="{Binding Stats.TotalLinesIniOS}"/>
+                    </StackLayout>
+                    <StackLayout 
+                        Orientation="Horizontal" >
+                        <Label 
+                            Text="Total lines Core: " />
+                        <Label 
+                            Text="{Binding Stats.TotalLinesCore}"/>
+                    </StackLayout>
+                </StackLayout>
+            </Grid>           
+            <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <oxyplot:PlotView
+                Grid.Column="0"
+                Model="{Binding IosPlotModel}" />
+            <oxyplot:PlotView
+                Grid.Column="1"
+                Model="{Binding AndroidPlotModel}" />
+            </Grid>
+            <StackLayout 
+                Grid.Row="2"
+                VerticalOptions="End"
+                Margin="12">
+                <Label
+                    TextColor="Blue"
+                    Text="Please share your results in stats page. Thank you"/>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer 
+                        Command="{Binding CommandShareLink}"  
+                        NumberOfTapsRequired="1" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

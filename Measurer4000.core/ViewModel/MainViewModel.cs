@@ -97,6 +97,14 @@ namespace Measurer4000.Core.ViewModels
             }
         }
 
+        public void MeasureSolutionByPath(string solutionPath)
+        {
+            IsBusy = true;
+            _currentSolution = _measureService.GetProjects(solutionPath);
+            IsBusy = false; 
+            MeasureSolution(_currentSolution);
+        }
+
         private void OpenSolutionPath(string solutionPath)
         {
             if(solutionPath.ToLower().Contains("measurer")) 
