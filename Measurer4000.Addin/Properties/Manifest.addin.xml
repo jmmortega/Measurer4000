@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ExtensionModel>
+    
+    <Extension path="/MonoDevelop/Ide/StartupHandlers">
+        <Class class="Measurer4000.Addin.Commands.InitXamarinFormsCommand"/>
+    </Extension>
+
+    <Extension path="/MonoDevelop/Ide/Commands">
+        <Command _label="Measurer 4000" 
+                 id="Measurer4000.Addin.Commands.MeasurerCommand"
+                 defaultHandler="Measurer4000.Addin.Commands.MeasurerCommand"/>
+    </Extension>
+    
+    <Extension path = "/MonoDevelop/Ide/MainMenu/Tools">
+        <CommandItem id="Measurer4000.Addin.Commands.MeasurerCommand"/>
+    </Extension>
+
+</ExtensionModel>
