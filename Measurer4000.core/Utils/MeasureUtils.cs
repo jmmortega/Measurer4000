@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Measurer4000.Core.Models;
 using Measurer4000.Core.Services.Interfaces;
+using System.Text.RegularExpressions;
 
 namespace Measurer4000.Core.Utils
 {
@@ -37,69 +38,36 @@ namespace Measurer4000.Core.Utils
 
         private static long CalculateLOCSharp(ProgrammingFile programmingFile)
         {
-            StreamReader reader = null;
             int count = 0;
-            int inComment = 0;
-
             try
             {
-                reader = new StreamReader(File.OpenRead(programmingFile.Path));
-                string line = string.Empty;
-                while ((line = reader.ReadLine()) != null)
+                using (StreamReader reader = new StreamReader(File.OpenRead(programmingFile.Path)))
                 {
-                    if(IsRealCodeCSharp(line.Trim(), ref inComment))
-                    {
-                        count++;
-                    }
+                    count = IsRealCodeCSharp(reader.ReadToEnd());
                 }
             }
             catch(Exception e)
             {
                 System.Diagnostics.Debug.WriteLine($"Error: {e.Message}");
             }
-            finally
-            {
-                if(reader != null)
-                {
-                    reader.Dispose();
-                }
-            }
-
             return count;
         }
 
         private static long CalculateLOCXaml(ProgrammingFile programmingFile)
         {
-            StreamReader reader = null;
             int count = 0;
-            int inComment = 0;
-
             try
             {
-                reader = new StreamReader(File.OpenRead(programmingFile.Path));
-                string line = string.Empty;
-                while ((line = reader.ReadLine()) != null)
+                using (StreamReader reader = new StreamReader(File.OpenRead(programmingFile.Path)))
                 {
-                    if (IsRealCodeXaml(line.Trim(), ref inComment))
-                    {
-                        count++;
-                    }
+                    count = IsRealCodeXaml(reader.ReadToEnd());
                 }
             }
             catch(Exception e)
             {
                 System.Diagnostics.Debug.WriteLine($"Error: {e.Message}");
             }
-            finally
-            {
-                if(reader != null)
-                {
-                    reader.Dispose();
-                }
-            }
-
             return count;
-        
         }
 
         private static long CalculateLOCAxml(ProgrammingFile programmingFile)
@@ -112,67 +80,33 @@ namespace Measurer4000.Core.Utils
             return CalculateLOCXaml(programmingFile);
         }
 
-        private static bool IsRealCodeAxml(string line, ref int inComment)
+        private static int IsRealCodeAxml(string fileContent)
         {
-            return IsRealCodeXaml(line, ref inComment);
+            return IsRealCodeXaml(fileContent);
         }
 
-        private static bool IsRealCodeXaml(string line, ref int inComment)
+        private static int IsRealCodeXaml(string fileContent)
         {
-            if(line.StartsWith("<!--") && line.EndsWith("-->"))
-            {
-                return false;
-            }
-            else if(line.StartsWith("<!--"))
-            {
-                inComment++;
-                return false;
-            }
-            else if(line.EndsWith("-->"))
-            {
-                inComment--;
-                return false;
-            }
-
-            return
-                inComment == 0
-                || line.Contains("/>")                
-                || line.Contains(">");
+            var pattern = "(<\\w+)";
+            return Regex.Matches(fileContent, pattern).Count;
         }
 
-        private static bool IsRealCodeXib(string line, ref int inComment)
+        private static int IsRealCodeXib(string fileContent)
         {
-            return IsRealCodeXaml(line, ref inComment);
+            return IsRealCodeXaml(fileContent);
         }
 
-        private static bool IsRealCodeCSharp(string line, ref int inComment)
+        private static int IsRealCodeCSharp(string fileContent)
         {
-            if(line.StartsWith("/*") && line.EndsWith("*/"))
-            {
-                return false;
-            }
-            else if (line.StartsWith("/*"))
-            {
-                inComment++;
-                return false;
-            }
-            else if(line.EndsWith("*/"))
-            {
-                inComment--;
-                return false;
-            }
+            var comments = "(\\s*//.+)|/\\*(?s:.*?)\\*/|(\\s*(?:\\{|\\}))";
+            var blank = "(^\\s*$\\n|\\r)";
+            var codePattern = @"(.+;(\n|\r|\r\n)|public|protected|internal|private|if([\(|\s\(])|else if([\(|\s\(])|while([\(|\s\(])|for([\(|\s\(])|foreach([\(|\s\(])|(\[(.+)\]$))";
+            
+            var code = Regex.Replace(fileContent, comments, "");
+            code = Regex.Replace(code, blank, "", RegexOptions.Multiline);
 
-            return
-                inComment == 0
-            && !line.StartsWith("//")
-            && (line.StartsWith("if")
-            || line.StartsWith("else if")
-            || line.StartsWith("using")
-            || line.Contains(";")
-            || line.StartsWith("public")
-            || line.StartsWith("private")
-            || line.StartsWith("protected"));
-        } 
+            return Regex.Matches(code, codePattern).Count;
+        }
 
         public static CodeStats CalculateStats(Solution _currentSolution)
         {
